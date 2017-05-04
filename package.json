@@ -1,0 +1,19 @@
+{
+  "name": "iris",
+  "version": "0.1.0",
+  "description": "Alexa Intents Service",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Balazs Cseh",
+  "license": "ISC",
+  "dependencies": {
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-register": "^6.24.1",
+    "express": "^4.15.2"
+  }
+}
