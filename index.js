@@ -7,7 +7,7 @@ const router = require('./src/server/router')
 const responsePrimitive = require('./config/responsePrimitive')
 
 
-app.post('/', (req, res) => {
+app.post('/', (req, res, next) => {
   const { session: { application: { applicationId } } } = req.body
   if ( applicationId !=== process.env.APP_ID ) {
     res.writeHead(400)
@@ -18,6 +18,10 @@ app.post('/', (req, res) => {
   res.writeHead(200)
   const response = router(req.body)
   res.end(JSON.stringify(response))
+})
+
+app.use((req, res, next) => {
+  next()
 })
 
 

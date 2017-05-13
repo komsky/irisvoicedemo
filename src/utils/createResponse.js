@@ -2,14 +2,14 @@
 
 
 const createResponse = (payload) => {
-  const { text, directives } = payload
+  const { text, options } = payload
   return {
     response: {
       outputSpeech: {
         type: "PlainText",
         text
       },
-      ...directives
+      ...options
     }
   }
 }

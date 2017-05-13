@@ -1,5 +1,5 @@
 
-import request from 'superagent'
+import agent from 'superagent'
 import { unpackJWT, signJWT } from './jwt'
 
 const {
@@ -16,19 +16,42 @@ const payload = {
 }
 
 const initSession = () => {
-  return request.post(`${API_HOST}/${API_PREFIX}/system/session/initialise`)
+  return agent.post(`${API_HOST}/${API_PREFIX}/system/session/initialise`)
   .set('Content-Type', 'application/json')
   .send(payload)
 };
 
 const initLogin = () => {
-  return request.post(`${API_HOST}/${API_PREFIX}/system/session/initialisebyroom`)
+  return agent.post(`${API_HOST}/${API_PREFIX}/system/session/initialisebyroom`)
   .set('Content-Type', 'application/json')
   .send({ ...payload, lastName, roomNumber })
 };
 
-const isAuthenticated = payload => {
+const tokenExpired = body =>
+  body.responses.some(x => x[Object.keys(x)[0]].areaError === 'IdentityTokenExpired')
 
+const formatReponse = async res => {
+  const { status: statusCode, body: { status }, body } = res
+  if (statusCode === 200 && status === 'Success') {
+    return {
+      ...res,
+      body: {
+        ...res.body,
+        jwt: await signJWT({ lastName, roomNumber, res.sessionToken })
+      }
+    }
+  }
+
+  if (statusCode === 401 && tokenExpired(body)) {
+    return {
+      body: {
+        statusCode: 401,
+        error: 'IdentityTokenExpired'
+      }
+    }
+  }
+
+  return res
 }
 
 const api = method => (path, payload) => {
@@ -36,12 +59,13 @@ const api = method => (path, payload) => {
 
   // IF NO GXP SESSION EXISTS -> CREATE IT
   // TODO CLARIFY WHEN TO LOGIN vs JUST SESSION INIT
-  const sessionToken = jwt ? await unpackJWT(jwt) : await initLogin()
+  const sessionToken = jwt ? await unpackJWT(jwt.token) : await initLogin()
 
-  return request[method](`${API_HOST}/${API_PREFIX}/${path}`)
+  return agent[method](`${API_HOST}/${API_PREFIX}/${path}`)
   .query({ sessionToken })
   .set('Content-Type', 'application/json')
-  .send()
+  .send(payload)
+  .then(res => formatReponse(res))
 }
 
 export default api
