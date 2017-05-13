@@ -24,7 +24,7 @@ export default {
     id: '92efa3b5-d0fa-44cc-96d2-b931759a639d',
     name: 'Useful Information',
     categories: {
-      "A-Z": {
+      'A-Z': {
         id: '9145d5d6-ac7a-45cd-80aa-5e984ed6dd7f',
         name: 'A-Z Information'
       },

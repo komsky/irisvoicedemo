@@ -6,7 +6,7 @@ const createResponse = (payload) => {
   return {
     response: {
       outputSpeech: {
-        type: "PlainText",
+        type: 'PlainText',
         text
       },
       ...options

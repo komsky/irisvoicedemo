@@ -10,21 +10,15 @@ const {
   LAST_NAME: lastName,
   ROOM_NUMBER: roomNumber } = process.env
 
-const payload = {
+const sessionPayload = {
   propertyCode,
   interfaceToken
 }
 
-const initSession = () => {
-  return agent.post(`${API_HOST}/${API_PREFIX}/system/session/initialise`)
-  .set('Content-Type', 'application/json')
-  .send(payload)
-};
-
 const initLogin = () => {
   return agent.post(`${API_HOST}/${API_PREFIX}/system/session/initialisebyroom`)
   .set('Content-Type', 'application/json')
-  .send({ ...payload, lastName, roomNumber })
+  .send({ ...sessionPayload, lastName, roomNumber })
 };
 
 const tokenExpired = body =>
@@ -37,7 +31,7 @@ const formatReponse = async res => {
       ...res,
       body: {
         ...res.body,
-        jwt: await signJWT({ lastName, roomNumber, res.body.sessionToken })
+        jwt: await signJWT({ lastName, roomNumber, sessionToken: res.body.sessionToken })
       }
     }
   }
@@ -54,7 +48,7 @@ const formatReponse = async res => {
   return res
 }
 
-const api = method => (path, payload) => {
+const api = method => async (path, payload) => {
   const { attributes: { jwt } } = payload.session
 
   // IF NO GXP SESSION EXISTS -> CREATE IT

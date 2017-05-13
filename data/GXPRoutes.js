@@ -4,7 +4,7 @@ export default {
     path: 'CMS/Content/Sections',
     key: 'getSections',
     method: 'GET'
-  }
+  },
   getCategoryItems: {
     path: 'CMS/Content/Categories/{{CategoryCode}}/Items',
     key: 'getCategoryItems',
