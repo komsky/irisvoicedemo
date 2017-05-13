@@ -4,8 +4,7 @@ require('dotenv').load();
 const app = require('./src/server')
 const router = require('./src/server/router')
 
-const responsePrimitive = require('./config/responsePrimitive')
-
+const { middleware } = require('./src/server/middleware')
 
 app.post('/', (req, res, next) => {
   const { session: { application: { applicationId } } } = req.body
@@ -20,10 +19,7 @@ app.post('/', (req, res, next) => {
   res.end(JSON.stringify(response))
 })
 
-app.use((req, res, next) => {
-  next()
-})
-
+app.use(attachSession)
 
 
 const port = process.env.PORT || 3000

@@ -1,3 +1,2 @@
 
-export { default as hotel } from './hotel'
-export { default as spa } from './spa'
+export { default as getPoolInformation } from './pool'

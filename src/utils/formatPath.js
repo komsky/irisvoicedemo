@@ -1,5 +1,5 @@
 
-const formatPath = sub => path =>
+const formatPath = (sub, path) =>
   path.replace(/{{.*}}/, sub)
 
 export default formatPath

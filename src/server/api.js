@@ -37,7 +37,7 @@ const formatReponse = async res => {
       ...res,
       body: {
         ...res.body,
-        jwt: await signJWT({ lastName, roomNumber, res.sessionToken })
+        jwt: await signJWT({ lastName, roomNumber, res.body.sessionToken })
       }
     }
   }
@@ -61,7 +61,7 @@ const api = method => (path, payload) => {
   // TODO CLARIFY WHEN TO LOGIN vs JUST SESSION INIT
   const sessionToken = jwt ? await unpackJWT(jwt.token) : await initLogin()
 
-  return agent[method](`${API_HOST}/${API_PREFIX}/${path}`)
+  return agent[method.toLowerCase()](`${API_HOST}/${API_PREFIX}/${path}`)
   .query({ sessionToken })
   .set('Content-Type', 'application/json')
   .send(payload)
