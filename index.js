@@ -20,6 +20,8 @@ app.post('/', async (req, res, next) => {
   res.writeHead(200)
   try {
     res.body = await router(req.body)
+
+    console.log('BODY IN MAIN HANDLER >>>>>', res.body)
   } catch (err) {
     console.error('ERROR >>>>>', err) // eslint-disable-line
   }

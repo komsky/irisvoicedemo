@@ -2,14 +2,15 @@
 
 
 const createResponse = payload => {
-  const { text, options } = payload
+  const { text, options, session } = payload
   return {
     response: {
       outputSpeech: {
         type: 'PlainText',
         text
       },
-      ...options
+      ...options,
+      sessionAttributes: session
     }
   }
 }

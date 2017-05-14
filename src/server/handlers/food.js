@@ -1,7 +1,7 @@
 import api from '../api'
 import { getItem, getCategoryItems } from '../../../data/GXPRoutes'
 import sections from '../../../data/sections'
-import { formatPath, sanitise } from '../../utils'
+import { formatPath } from '../../utils'
 import { path, pick } from 'ramda'
 const get = api(getItem.method)
 
@@ -43,10 +43,8 @@ const getFoodInformation = async (payload) => {
   }
 
   const originalSesssion = newSession ? res.session : payload.session.attributes
-  const session = { originalSesssion, paging: { page: page + 1, size: 3 }, options: simpleItems }
+  const session = { ...originalSesssion, paging: { page: page + 1, size: 3 }, options: simpleItems }
 
-  // MAKE ACCESS LESS BRITTLE -> No 0 PROP ACCESS
-  // const text = sanitise(res.responses[0][getCategoryItems.key].content.longDescription)
   return {
     text,
     session,
