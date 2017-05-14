@@ -30,7 +30,9 @@ const formatReponse = async res => {
   if (statusCode === 200 && status === 'Success') {
     return {
       ...res.body,
-      jwt: await signJWT({ lastName, roomNumber, sessionToken: res.body.sessionToken })
+      session: {
+        jwt: await signJWT({ lastName, roomNumber, sessionToken: res.body.sessionToken })
+      }
     }
   }
 

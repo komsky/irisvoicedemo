@@ -7,18 +7,18 @@ export default {
   foodAndDrink: {
     id: '21c52df1-541e-4166-afb0-710acd50403e',
     name: 'Food & Drink',
-    categories: [
-      {
+    categories: {
+      roomService: {
         name: 'Dine in your room',
         id: 'b0a59c6e-1c20-4631-87e9-916ed118a923',
-        subCategories: [
-          {
+        subCategories: {
+          mains: {
             id: '70f05558-2bcb-4651-84e7-9f8c7f5e9b21',
             name: 'Main Courses'
           }
-        ]
+        }
       }
-    ]
+    }
   },
   information: {
     id: '92efa3b5-d0fa-44cc-96d2-b931759a639d',
