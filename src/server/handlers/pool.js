@@ -1,7 +1,7 @@
 import api from '../api'
 import { getItem } from '../../../data/GXPRoutes'
 import sections from '../../../data/sections'
-import { formatPath, sanitise } from '../../utils'
+import { formatPath } from '../../utils'
 import { path } from 'ramda'
 const get = api(getItem.method)
 
@@ -12,9 +12,8 @@ const getPoolInformation = async (payload) => {
   const res = await get(pathName, payload)
 
   // MAKE ACCESS LESS BRITTLE -> No 0 PROP ACCESS
-  const text = sanitise(res.responses[0][getItem.key].content.longDescription)
   return {
-    text,
+    text: res.responses[0][getItem.key].content.longDescription,
     options: { shouldEndSession: true }
   }
 }

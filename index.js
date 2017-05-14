@@ -5,7 +5,7 @@ const app = require('express')()
 const router = require('./src/server/router')
 const bodyParser = require('body-parser')
 
-const { attachSession } = require('./src/server/middleware')
+const { attachSession, sanitise, endResponse } = require('./src/server/middleware')
 
 app.use(bodyParser.json())
 
@@ -28,7 +28,9 @@ app.post('/', async (req, res, next) => {
 })
 
 app.use(attachSession)
+app.use(sanitise)
 
+app.use(endResponse)
 
 const port = process.env.PORT || 3000
 
