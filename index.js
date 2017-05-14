@@ -18,8 +18,12 @@ app.post('/', async (req, res, next) => {
 
   res.set('Content-Type', 'application/json');
   res.writeHead(200)
-  const response = await router(req.body)
-  res.body = response
+  try {
+    res.body = await router(req.body)
+  } catch (err) {
+    console.error('ERROR >>>>>', err) // eslint-disable-line
+  }
+
   next()
 })
 
