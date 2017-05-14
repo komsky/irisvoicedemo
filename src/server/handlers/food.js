@@ -11,8 +11,7 @@ const pathName = formatPath(mains.id, getCategoryItems.path)
 const buildText = (first, items) => {
   const itemsText = items.map(x => x.name).join(',')
   if (first) {
-    return `We have some great things in on the in-room dining menu tonight.
-    Here are three options, but let me know if you want to hear more. ${itemsText}`
+    return `We have some great things in on the in-room dining menu tonight. Here are three options, but let me know if you want to hear more. ${itemsText}`
   }
   return `OK, here's three more: ${itemsText}`
 }
