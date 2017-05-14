@@ -13,7 +13,6 @@ const getPoolInformation = async (payload) => {
 
   // MAKE ACCESS LESS BRITTLE -> No 0 PROP ACCESS
   const text = sanitise(res.responses[0][getItem.key].content.longDescription)
-
   return {
     text,
     options: { shouldEndSession: true }

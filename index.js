@@ -3,10 +3,13 @@ require('dotenv').load();
 
 const app = require('express')()
 const router = require('./src/server/router')
+const bodyParser = require('body-parser')
 
 const { attachSession } = require('./src/server/middleware')
 
-app.post('/', (req, res, next) => {
+app.use(bodyParser.json())
+
+app.post('/', async (req, res, next) => {
   const { session: { application: { applicationId } } } = req.body
   if ( applicationId !== process.env.APP_ID ) {
     res.writeHead(400)
@@ -15,7 +18,8 @@ app.post('/', (req, res, next) => {
 
   res.set('Content-Type', 'application/json');
   res.writeHead(200)
-  res.body = router(req.body)
+  const response = await router(req.body)
+  res.body = response
   next()
 })
 

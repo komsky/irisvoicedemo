@@ -1,7 +1,7 @@
 
 
 
-const createResponse = (payload) => {
+const createResponse = payload => {
   const { text, options } = payload
   return {
     response: {

@@ -19,6 +19,7 @@ const initLogin = () => {
   return agent.post(`${API_HOST}/${API_PREFIX}/system/session/initialisebyroom`)
   .set('Content-Type', 'application/json')
   .send({ ...sessionPayload, lastName, roomNumber })
+  .then(res => res.body)
 };
 
 const tokenExpired = body =>
@@ -28,20 +29,15 @@ const formatReponse = async res => {
   const { status: statusCode, body: { status }, body } = res
   if (statusCode === 200 && status === 'Success') {
     return {
-      ...res,
-      body: {
-        ...res.body,
-        jwt: await signJWT({ lastName, roomNumber, sessionToken: res.body.sessionToken })
-      }
+      ...res.body,
+      jwt: await signJWT({ lastName, roomNumber, sessionToken: res.body.sessionToken })
     }
   }
 
   if (statusCode === 401 && tokenExpired(body)) {
     return {
-      body: {
-        statusCode: 401,
-        error: 'IdentityTokenExpired'
-      }
+      statusCode: 401,
+      error: 'IdentityTokenExpired'
     }
   }
 
@@ -53,7 +49,7 @@ const api = method => async (path, payload) => {
 
   // IF NO GXP SESSION EXISTS -> CREATE IT
   // TODO CLARIFY WHEN TO LOGIN vs JUST SESSION INIT
-  const sessionToken = jwt ? await unpackJWT(jwt.token) : await initLogin()
+  const { sessionToken } = jwt ? await unpackJWT(jwt.token) : await initLogin()
 
   return agent[method.toLowerCase()](`${API_HOST}/${API_PREFIX}/${path}`)
   .query({ sessionToken })
