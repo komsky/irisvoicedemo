@@ -47,7 +47,7 @@ const formatReponse = async res => {
 }
 
 const api = method => async (path, payload) => {
-  const { attributes: { jwt } } = payload.session
+  const { attributes: { session: { jwt } } } = payload.session
 
   // IF NO GXP SESSION EXISTS -> CREATE IT
   // TODO CLARIFY WHEN TO LOGIN vs JUST SESSION INIT
