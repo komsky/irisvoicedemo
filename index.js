@@ -5,7 +5,7 @@ const app = require('express')()
 const router = require('./src/server/router')
 const bodyParser = require('body-parser')
 
-const { attachSession, sanitise, endResponse } = require('./src/server/middleware')
+const { sanitise, endResponse } = require('./src/server/middleware')
 
 app.use(bodyParser.json())
 
@@ -20,8 +20,6 @@ app.post('/', async (req, res, next) => {
   res.writeHead(200)
   try {
     res.body = await router(req.body)
-
-    console.log('BODY IN MAIN HANDLER >>>>>', res.body)
   } catch (err) {
     console.error('ERROR >>>>>', err) // eslint-disable-line
   }
@@ -29,7 +27,6 @@ app.post('/', async (req, res, next) => {
   next()
 })
 
-app.use(attachSession)
 app.use(sanitise)
 
 app.use(endResponse)

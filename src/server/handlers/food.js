@@ -18,7 +18,7 @@ const buildText = (first, items) => {
 
 const getFoodInformation = async (payload) => {
   const { attributes, new: newSession } = payload.session
-  const  { paging, options } = attributes.session
+  const  { paging, options } = attributes.session || {}
   const { page = 0, size = 3 } = paging || {}
 
   let items;

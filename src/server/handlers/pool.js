@@ -14,7 +14,8 @@ const getPoolInformation = async (payload) => {
   // MAKE ACCESS LESS BRITTLE -> No 0 PROP ACCESS
   return {
     text: res.responses[0][getItem.key].content.longDescription,
-    options: { shouldEndSession: true }
+    options: { shouldEndSession: true },
+    session: res.session
   }
 }
 
