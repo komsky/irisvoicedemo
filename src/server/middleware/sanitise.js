@@ -10,6 +10,7 @@ const sanitiseAmpersand = text =>
   text.replace(/&/g, 'and')
 
 const sanitise = (req, res, next) => {
+  if (!res.body.response.outputSpeech) return next()
   const text = res.body.response.outputSpeech.text
   const sanitate = compose(
     sanitiseAmpersand,

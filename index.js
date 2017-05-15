@@ -23,7 +23,7 @@ app.post('/', async (req, res, next) => {
   } catch (err) {
     console.error('ERROR >>>>>', err) // eslint-disable-line
   }
-
+  if (!res.body) return res.end()
   next()
 })
 

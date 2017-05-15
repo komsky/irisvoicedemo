@@ -12,6 +12,8 @@ const pathName = formatPath(mains.id, getCategoryItems.path)
 const isFilled = slotsFilled(foodModel)
 const isTriggerFilled = slotFilled(foodModel.slots.delegateTrigger)
 
+const submitOrder = () => console.log('SUBMITTING ORDER >>>>>>') //eslint-disable-line
+
 const buildText = (first, items) => {
   const itemsText = items.map(x => x.name).join(',')
   if (first) {
@@ -39,7 +41,8 @@ const getFoodInformation = async (payload) => {
   // IF YES, SUBMIT, ELSE CARRY ON AS NORMAL
   if (isFilled(slots)) {
     // PSEUDO FOR NOW
-    // submitOrder()
+    submitOrder()
+    return {}
   } else {
     const items = res.responses[0][getCategoryItems.key].content.categoryItems
 

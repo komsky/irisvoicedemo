@@ -1,7 +1,8 @@
-
+import { isEmpty } from 'ramda'
 
 
 const createResponse = payload => {
+  if (isEmpty(payload)) return
   const { text, options, session, directives } = payload
 
   const speech = text ? { outputSpeech: { type: 'PlainText', text } } : {}
