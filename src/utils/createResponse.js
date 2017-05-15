@@ -10,8 +10,8 @@ const createResponse = payload => {
         text
       },
       ...options,
-      sessionAttributes: { session }
-    }
+    },
+    sessionAttributes: { session }
   }
 }
 
