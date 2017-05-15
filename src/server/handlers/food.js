@@ -43,7 +43,7 @@ const getFoodInformation = async (payload) => {
   }
 
   const originalSesssion = newSession ? res.session : payload.session.attributes
-  const session = { ...originalSesssion, paging: { page: page + 1, size: 3 }, options: simpleItems }
+  const session = { ...originalSesssion.session, paging: { page: page + 1, size: 3 }, options: simpleItems }
 
   return {
     text,

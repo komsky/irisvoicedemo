@@ -7,7 +7,7 @@ const sanitiseHTML = text =>
   compose(entities.decode, striptags)(text)
 
 const sanitiseAmpersand = text =>
-  text.replace(/&/i, 'and')
+  text.replace(/&/g, 'and')
 
 const sanitise = (req, res, next) => {
   const text = res.body.response.outputSpeech.text
