@@ -24,6 +24,7 @@
     "jsonwebtoken": "^7.4.0",
     "ramda": "^0.23.0",
     "striptags": "^3.0.1",
-    "superagent": "^3.5.2"
+    "superagent": "^3.5.2",
+    "superagent-cache": "^2.0.0"
   }
 }

@@ -1,5 +1,7 @@
 
 import agent from 'superagent'
+import cache from 'superagent-cache'
+cache(agent)
 import { unpackJWT, signJWT } from './jwt'
 
 const {

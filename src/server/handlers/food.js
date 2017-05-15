@@ -18,20 +18,11 @@ const buildText = (first, items) => {
 
 const getFoodInformation = async (payload) => {
   const { attributes, new: newSession } = payload.session
-  const  { paging, options } = attributes.session || {}
+  const  { paging } = attributes.session || {}
   const { page = 0, size = 3 } = paging || {}
 
-  let items;
-  let res;
-  // IF SESSION IS NEW, FETCH MAINS OPTIONS
-  if (newSession && !options) {
-    res = await get(pathName, payload)
-    items = res.responses[0][getCategoryItems.key].content.categoryItems
-  }
-
-  if (options && !newSession) {
-    items = options
-  }
+  const res = await get(pathName, payload)
+  const items = res.responses[0][getCategoryItems.key].content.categoryItems
 
   const simpleItems = items.map(pick([ 'itemCode', 'name', 'longDescription', 'price', 'modifiers' ]))
 
@@ -43,7 +34,7 @@ const getFoodInformation = async (payload) => {
   }
 
   const originalSesssion = newSession ? res.session : payload.session.attributes
-  const session = { ...originalSesssion.session, paging: { page: page + 1, size: 3 }, options: simpleItems }
+  const session = { ...originalSesssion.session, paging: { page: page + 1, size: 3 } }
 
   return {
     text,
