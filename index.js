@@ -10,6 +10,7 @@ const { sanitise, endResponse } = require('./src/server/middleware')
 app.use(bodyParser.json())
 
 app.post('/', async (req, res, next) => {
+  console.log('REQUEST BODY >>>>>', req.body)
   const { session: { application: { applicationId } } } = req.body
   if ( applicationId !== process.env.APP_ID ) {
     res.writeHead(400)
