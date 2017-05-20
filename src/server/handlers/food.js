@@ -23,9 +23,9 @@ const buildText = (first, items) => {
 }
 
 const getFoodInformation = async (payload) => {
-  const { attributes, new: newSession } = payload.session
-  const  { paging } = attributes.session || {}
-  const { page = 0, size = 3 } = paging || {}
+  const { attributes = {}, new: newSession } = payload.session
+  const paging = path([ 'session', 'paging' ], attributes)
+  const { page = 0, size = 3 } = paging
   const { intent: { slots } } = payload.request
 
   const res = await get(pathName, payload)
