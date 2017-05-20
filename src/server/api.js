@@ -1,6 +1,7 @@
 
 import agent from 'superagent'
 import cache from 'superagent-cache'
+import * as R from 'ramda'
 cache(agent)
 import { unpackJWT, signJWT } from './jwt'
 
@@ -50,7 +51,7 @@ const formatReponse = async res => {
 
 const api = method => async (path, payload) => {
   const { attributes } = payload.session
-  const { jwt } = attributes.session || {}
+  const jwt = R.path([ 'session', 'jwt' ], attributes)
 
   // IF NO GXP SESSION EXISTS -> CREATE IT
   // TODO CLARIFY WHEN TO LOGIN vs JUST SESSION INIT
