@@ -6,7 +6,7 @@ import { formatPath, slotsFilled, slotFilled } from '../../utils'
 import { path, pick } from 'ramda'
 const get = api(getItem.method)
 
-const mains = path([ 'foodAndDrink', 'categories', 'roomService', 'subCategories', 'mains' ], sections)
+const mains = path([ 'foodAndDrink', 'categories', 'roomService' ], sections)
 const pathName = formatPath(mains.id, getCategoryItems.path)
 
 const isFilled = slotsFilled(foodModel)
@@ -25,7 +25,7 @@ const buildText = (first, items) => {
 const getFoodInformation = async (payload) => {
   const { attributes = {}, new: newSession } = payload.session
   const paging = path([ 'session', 'paging' ], attributes)
-  const { page = 0, size = 3 } = paging
+  const { page = 0, size = 3 } = paging || {}
   const { intent: { slots } } = payload.request
 
   const res = await get(pathName, payload)
