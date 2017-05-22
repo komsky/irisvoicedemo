@@ -31,13 +31,13 @@ const getFoodInformation = async (payload) => {
   const { attributes = {}, new: newSession } = payload.session
   const paging = path([ 'session', 'paging' ], attributes)
   const { page = 0, size = 3 } = paging || {}
-  const { intent: { slots } } = payload.request
+  const { intent: { slots }, dialogState } = payload.request
 
   const res = await get(pathName, payload)
 
   // CHECK IF ALL SLOTS ARE FILLED
   // IF YES, SUBMIT, ELSE CARRY ON AS NORMAL
-  if (isFilled(slots)) {
+  if (dialogState === 'COMPLETED') {
     // PSEUDO FOR NOW
     submitOrder()
     return {}
@@ -62,7 +62,7 @@ const getFoodInformation = async (payload) => {
 
     if (mainsFilled(slots) && !cookingFilled(slots)) {
       console.log('SLOTS >>>>>>>', slots)
-      const selected = items.find(x => x.name === slots.mainsOptions.value.toLowerCase())
+      const selected = items.find(x => (x.name === slots.mainsOptions.value.toLowerCase() || x.name === "flatiron steak"))
       return {
         directives: [
           {
@@ -71,6 +71,19 @@ const getFoodInformation = async (payload) => {
           }
         ],
         text: buildModifierText(selected.modifiers[0]),
+        options: { shouldEndSession: false },
+        session: {}
+      }
+    }
+
+    if(isFilled(slots)) {
+      return {
+        directives: [
+          {
+            type: 'Dialog.Delegate',
+            slotToElicit: 'cookingOptions'
+          }
+        ],
         options: { shouldEndSession: false },
         session: {}
       }
