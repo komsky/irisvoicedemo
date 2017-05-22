@@ -11,15 +11,20 @@ const pathName = formatPath(mains.id, getCategoryItems.path)
 
 const isFilled = slotsFilled(foodModel)
 const isTriggerFilled = slotFilled(foodModel.slots.delegateTrigger)
+const mainsFilled = slotFilled('mainsOptions')
+const cookingFilled = slotFilled('cookingOptions')
 
 const submitOrder = () => console.log('SUBMITTING ORDER >>>>>>') //eslint-disable-line
 
-const buildText = (first, items) => {
+const buildMainsText = items => {
   const itemsText = items.map(x => x.name).join(',')
-  if (first) {
-    return `We have some great things in on the in-room dining menu tonight. Here are three options, but let me know if you want to hear more. ${itemsText}`
-  }
-  return `OK, here's three more: ${itemsText}`
+  return `We have some great things in on the in-room dining menu tonight. Here are three options, which one would you like? ${itemsText}`
+}
+
+const buildModifierText = (modifier, prompt) => {
+  const options = modifier.modifierOptions.map(x => x.name).join(',')
+  const text = prompt || modifier.name.replace(/\(Copy\)/, '')
+  return `${text} ${options}`
 }
 
 const getFoodInformation = async (payload) => {
@@ -30,13 +35,6 @@ const getFoodInformation = async (payload) => {
 
   const res = await get(pathName, payload)
 
-  // IF DELEGATE TRIGGER IS FULFILLED, DELEGATE SLOT ELICITATION TO ALEXA
-  if (!isFilled(slots) && isTriggerFilled(slots)) {
-    return {
-      directives: [ { type: 'Dialog.Delegate' } ]
-    }
-  }
-
   // CHECK IF ALL SLOTS ARE FILLED
   // IF YES, SUBMIT, ELSE CARRY ON AS NORMAL
   if (isFilled(slots)) {
@@ -44,25 +42,41 @@ const getFoodInformation = async (payload) => {
     submitOrder()
     return {}
   } else {
-    const items = res.responses[0][getCategoryItems.key].content.categoryItems
-
+    const items = res.responses[0][getCategoryItems.key].content.categoryItems.slice(9,12)
     const simpleItems = items.map(pick([ 'itemCode', 'name', 'longDescription', 'price', 'modifiers' ]))
 
-    let text;
-    if (page) {
-      text = buildText(false, simpleItems.slice(page * size, (page * size) + size))
-    } else {
-      text = buildText(true, simpleItems.slice(0, size))
+    // MAINS OPTION NOT YET FILLED
+    if (!mainsFilled(slots)) {
+      return {
+        directives: [
+          {
+            type: 'Dialog.ElicitSlot',
+            slotToElicit: 'mainsOptions'
+          }
+        ],
+        text: buildMainsText(simpleItems),
+        options: { shouldEndSession: false },
+        session: {}
+      }
     }
 
-    const originalSesssion = newSession ? res.session : payload.session.attributes
-    const session = { ...originalSesssion.session, paging: { page: page + 1, size: 3 } }
-
-    return {
-      text,
-      session,
-      options: { shouldEndSession: false }
+    if (mainsFilled(slots) && !cookingFilled(slots)) {
+      const selected = items.find(x => x.name === slots.mainsOptions.value)
+      return {
+        directives: [
+          {
+            type: 'Dialog.ElicitSlot',
+            slotToElicit: 'cookingOptions'
+          }
+        ],
+        text: buildModifierText(selected.modifiers[0]),
+        options: { shouldEndSession: false },
+        session: {}
+      }
     }
+
+    // const originalSesssion = newSession ? res.session : payload.session.attributes
+    // const session = { ...originalSesssion.session, paging: { page: page + 1, size: 3 } }
   }
 }
 

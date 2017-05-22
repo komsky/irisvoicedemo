@@ -3,8 +3,8 @@ export default {
   slots: {
     required: [
       'cookingOptions',
-      'sauceOptions',
-      'sideOptions',
+      // 'sauceOptions',
+      // 'sideOptions',
       'mainsOptions'
     ],
     delegateTrigger: 'mainsOptions'
