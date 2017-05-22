@@ -62,7 +62,8 @@ const getFoodInformation = async (payload) => {
 
     if (mainsFilled(slots) && !cookingFilled(slots)) {
       console.log('SLOTS >>>>>>>', slots)
-      const selected = items.find(x => (x.name === slots.mainsOptions.value.toLowerCase() || x.name === "flatiron steak"))
+      // const selected = items.find(x => (x.name === slots.mainsOptions.value.toLowerCase() || x.name === "flatiron steak"))
+      const selected = items.find(x => x.name === "Flat Iron Steak")
       return {
         directives: [
           {
