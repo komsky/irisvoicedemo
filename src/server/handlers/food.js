@@ -40,7 +40,11 @@ const getFoodInformation = async (payload) => {
   if (dialogState === 'COMPLETED') {
     // PSEUDO FOR NOW
     submitOrder()
-    return {}
+    return {
+      text: 'I have submitted your order to the hotel!',
+      options: { shouldEndSession: true },
+      session: {}
+    }
   } else {
     const items = res.responses[0][getCategoryItems.key].content.categoryItems.slice(9,12)
     const simpleItems = items.map(pick([ 'itemCode', 'name', 'longDescription', 'price', 'modifiers' ]))
