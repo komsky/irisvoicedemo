@@ -8,7 +8,7 @@ const getSelection = (model, slots, items) =>
 
 const getModifier = modifiers => name =>
   // NOTE remove 0 access
-  modifiers[0].modifierOptions.find(x => x.name === name)
+  modifiers[0].modifierOptions.find(x => lower(x.name) === lower(name))
 
 const mapModifiers = (selections, modifiers) =>
   selections.map(getModifier(modifiers))
@@ -26,12 +26,10 @@ const buildOrder = model => (slots, items) => {
   console.log('MODIFIERS >>>>>', modifiers)
 
 
-  const modifierSelections = pluck('value', Object.values(omit([ model.slots.delegateTrigger ], slots)))
+  const modifierSelections = pluck('value', Object.values(omit([ model.slots.delegateTrigger ], slots))).filter(x => !!x)
   console.dir(modifierSelections)
   const modifierOptions = mapModifiers(modifierSelections, modifiers)
   console.dir(modifierOptions)
-
-
 
   return {
     categoryItems: [
