@@ -13,7 +13,7 @@ export default {
         id: 'b0a59c6e-1c20-4631-87e9-916ed118a923',
         subCategories: {
           mains: {
-            id: '70f05558-2bcb-4651-84e7-9f8c7f5e9b21',
+            id: '05fd5f01-5841-e711-80c2-000d3a222aa0',
             name: 'Main Courses'
           }
         }
@@ -39,5 +39,6 @@ export default {
         }
       }
     }
-  }
+  },
+  steak: '09e98548-2f80-4047-8b39-b38f78257cac'
 }

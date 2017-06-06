@@ -14,5 +14,10 @@ export default {
     path: 'CMS/Content/Items/{{Code}}',
     key: 'getItem',
     method: 'GET'
+  },
+  checkout: {
+    path: 'Interactive/Cart/AddItemsAndCheckout',
+    key: 'checkout',
+    method: 'POST'
   }
 }

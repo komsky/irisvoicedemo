@@ -49,8 +49,8 @@ const formatReponse = async res => {
   return res
 }
 
-const api = method => async (path, payload) => {
-  const { attributes } = payload.session
+const api = method => async (path, payload = {}) => {
+  const attributes = R.path([ 'session', 'attributes' ], payload)
   const jwt = R.path([ 'session', 'jwt' ], attributes)
 
   // IF NO GXP SESSION EXISTS -> CREATE IT
@@ -60,7 +60,7 @@ const api = method => async (path, payload) => {
   return agent[method.toLowerCase()](`${API_HOST}/${API_PREFIX}/${path}`)
   .query({ sessionToken })
   .set('Content-Type', 'application/json')
-  .send(payload)
+  .send({ ...payload, sessionToken })
   .then(res => formatReponse(res))
 }
 

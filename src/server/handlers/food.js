@@ -1,20 +1,23 @@
 import api from '../api'
-import { getItem, getCategoryItems } from '../../../data/GXPRoutes'
+import { getItem, getCategoryItems, checkout } from '../../../data/GXPRoutes'
 import sections from '../../../data/sections'
 import { foodModel } from '../../model'
-import { formatPath, slotsFilled, slotFilled } from '../../utils'
+import { formatPath, slotsFilled, slotFilled, buildOrder } from '../../utils'
 import { path, pick } from 'ramda'
 const get = api(getItem.method)
+const post = api(checkout.method)
 
-const mains = path([ 'foodAndDrink', 'categories', 'roomService' ], sections)
+const mains = path([ 'foodAndDrink', 'categories', 'roomService', 'subCategories', 'mains' ], sections)
 const pathName = formatPath(mains.id, getCategoryItems.path)
 
-const isFilled = slotsFilled(foodModel)
-const isTriggerFilled = slotFilled(foodModel.slots.delegateTrigger)
+// const isFilled = slotsFilled(foodModel)
 const mainsFilled = slotFilled('mainsOptions')
 const cookingFilled = slotFilled('cookingOptions')
 
-const submitOrder = () => console.log('SUBMITTING ORDER >>>>>>') //eslint-disable-line
+const submitOrder = (slots, items) => {
+  const payload = buildOrder(foodModel)(slots, items)
+  post(checkout.path, payload)
+}
 
 const buildMainsText = items => {
   const itemsText = items.map(x => x.name).join(',')
@@ -28,25 +31,22 @@ const buildModifierText = (modifier, prompt) => {
 }
 
 const getFoodInformation = async (payload) => {
-  const { attributes = {}, new: newSession } = payload.session
-  const paging = path([ 'session', 'paging' ], attributes)
-  const { page = 0, size = 3 } = paging || {}
-  const { intent: { slots }, dialogState } = payload.request
+  const { intent: { slots, confirmationStatus }, dialogState } = payload.request
 
   const res = await get(pathName, payload)
+  const items = res.responses[0][getCategoryItems.key].content.categoryItems.slice(9, 12)
 
   // CHECK IF ALL SLOTS ARE FILLED
   // IF YES, SUBMIT, ELSE CARRY ON AS NORMAL
-  if (dialogState === 'COMPLETED') {
+  if (dialogState === 'COMPLETED' && confirmationStatus === 'CONFIRMED') {
     // PSEUDO FOR NOW
-    submitOrder()
+    submitOrder(slots, items)
     return {
       text: 'I have submitted your order to the hotel!',
       options: { shouldEndSession: true },
       session: {}
     }
   } else {
-    const items = res.responses[0][getCategoryItems.key].content.categoryItems.slice(9,12)
     const simpleItems = items.map(pick([ 'itemCode', 'name', 'longDescription', 'price', 'modifiers' ]))
 
     // MAINS OPTION NOT YET FILLED
@@ -65,9 +65,7 @@ const getFoodInformation = async (payload) => {
     }
 
     if (mainsFilled(slots) && !cookingFilled(slots)) {
-      console.log('SLOTS >>>>>>>', slots)
-      // const selected = items.find(x => (x.name === slots.mainsOptions.value.toLowerCase() || x.name === "flatiron steak"))
-      const selected = items.find(x => x.name === "Flat Iron Steak")
+      const selected = items.find(x => x.name === 'Flat Iron Steak')
       return {
         directives: [
           {
@@ -80,22 +78,19 @@ const getFoodInformation = async (payload) => {
         session: {}
       }
     }
-
-    if(isFilled(slots)) {
-      return {
-        directives: [
-          {
-            type: 'Dialog.Delegate',
-            slotToElicit: 'cookingOptions'
-          }
-        ],
-        options: { shouldEndSession: false },
-        session: {}
-      }
-    }
-
-    // const originalSesssion = newSession ? res.session : payload.session.attributes
-    // const session = { ...originalSesssion.session, paging: { page: page + 1, size: 3 } }
+    //
+    // if(isFilled(slots)) {
+    //   return {
+    //     directives: [
+    //       {
+    //         type: 'Dialog.Delegate',
+    //         slotToElicit: 'cookingOptions'
+    //       }
+    //     ],
+    //     options: { shouldEndSession: false },
+    //     session: {}
+    //   }
+    // }
   }
 }
 
