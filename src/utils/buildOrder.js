@@ -1,9 +1,10 @@
 
 import { pluck, omit } from 'ramda'
 import { steak } from '../../data/sections'
+import lower from './lower'
 
 const getSelection = (model, slots, items) =>
-  items.find(x => x.name === slots[model.slots.delegateTrigger].value)
+  items.find(x => lower(x.name) === lower(slots[model.slots.delegateTrigger].value))
 
 const getModifier = modifiers => name =>
   // NOTE remove 0 access

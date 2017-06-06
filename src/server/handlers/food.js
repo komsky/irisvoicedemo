@@ -2,7 +2,7 @@ import api from '../api'
 import { getItem, getCategoryItems, checkout } from '../../../data/GXPRoutes'
 import sections from '../../../data/sections'
 import { foodModel } from '../../model'
-import { formatPath, slotsFilled, slotFilled, buildOrder } from '../../utils'
+import { formatPath, slotsFilled, slotFilled, buildOrder, lower } from '../../utils'
 import { path, pick } from 'ramda'
 const get = api(getItem.method)
 const post = api(checkout.method)
@@ -42,7 +42,7 @@ const getFoodInformation = async (payload) => {
     // PSEUDO FOR NOW
     submitOrder(slots, items)
     return {
-      text: 'I have submitted your order to the hotel!',
+      text: 'OK that’s done, you can ask me for an update on your order at anytime',
       options: { shouldEndSession: true },
       session: {}
     }
@@ -65,7 +65,7 @@ const getFoodInformation = async (payload) => {
     }
 
     if (mainsFilled(slots) && !cookingFilled(slots)) {
-      const selected = items.find(x => x.name === 'Flat Iron Steak')
+      const selected = items.find(x => lower(x.name) === lower(slots[foodModel.slots.delegateTrigger].value))
       return {
         directives: [
           {

@@ -19,5 +19,10 @@ export default {
     path: 'Interactive/Cart/AddItemsAndCheckout',
     key: 'checkout',
     method: 'POST'
+  },
+  getOrders: {
+    path: 'Interactive/Order',
+    key: 'getOrders',
+    method: 'GET'
   }
 }
