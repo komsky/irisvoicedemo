@@ -19,6 +19,11 @@ const buildOrder = model => (slots, items) => {
   const mainSelection = getSelection(model, slots, items)
   const { itemCode, modifiers, code } = mainSelection || {}
 
+  console.log('SLOTS >>>>>', JSON.stringify(slots))
+  console.log('ITEMS >>>>>', items)
+  console.log('MAIN SELECTION >>>>>>', mainSelection)
+  console.log('MODIFIERS >>>>>', modifiers)
+
 
   const modifierSelections = pluck('value', Object.values(omit([ model.slots.delegateTrigger ], slots)))
   const modifierOptions = mapModifiers(modifierSelections, modifiers)

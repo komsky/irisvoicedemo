@@ -14,7 +14,7 @@ const isFilled = slotsFilled(foodModel)
 const mainsFilled = slotFilled('mainsOptions')
 const cookingFilled = slotFilled('cookingOptions')
 
-const submitOrder = (slots, items) => {
+const submitOrder = async (slots, items) => {
   const payload = buildOrder(foodModel)(slots, items)
   post(checkout.path, payload)
 }
