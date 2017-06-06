@@ -10,7 +10,7 @@ const post = api(checkout.method)
 const mains = path([ 'foodAndDrink', 'categories', 'roomService', 'subCategories', 'mains' ], sections)
 const pathName = formatPath(mains.id, getCategoryItems.path)
 
-// const isFilled = slotsFilled(foodModel)
+const isFilled = slotsFilled(foodModel)
 const mainsFilled = slotFilled('mainsOptions')
 const cookingFilled = slotFilled('cookingOptions')
 
@@ -78,19 +78,19 @@ const getFoodInformation = async (payload) => {
         session: {}
       }
     }
-    //
-    // if(isFilled(slots)) {
-    //   return {
-    //     directives: [
-    //       {
-    //         type: 'Dialog.Delegate',
-    //         slotToElicit: 'cookingOptions'
-    //       }
-    //     ],
-    //     options: { shouldEndSession: false },
-    //     session: {}
-    //   }
-    // }
+
+    if(isFilled(slots)) {
+      return {
+        directives: [
+          {
+            type: 'Dialog.Delegate',
+            slotToElicit: 'cookingOptions'
+          }
+        ],
+        options: { shouldEndSession: false },
+        session: {}
+      }
+    }
   }
 }
 
