@@ -27,9 +27,9 @@ const buildOrder = model => (slots, items) => {
 
 
   const modifierSelections = pluck('value', Object.values(omit([ model.slots.delegateTrigger ], slots)))
-  console.dir('MODIFIER SELECTIONS >>>>', modifierSelections)
+  console.dir(modifierSelections)
   const modifierOptions = mapModifiers(modifierSelections, modifiers)
-  console.dir('MODIFIER OPTIONS >>>>', modifierOptions)
+  console.dir(modifierOptions)
 
 
 
