@@ -10,7 +10,8 @@ const { sanitise, endResponse } = require('./src/server/middleware')
 app.use(bodyParser.json())
 
 app.post('/', async (req, res, next) => {
-  console.log('REQUEST BODY >>>>>', req.body)
+  console.log('REQUEST BODY >>>>>') // eslint-disable-line
+  console.dir(req.body) // eslint-disable-line
   const { session: { application: { applicationId } } } = req.body
   if ( applicationId !== process.env.APP_ID ) {
     res.writeHead(400)

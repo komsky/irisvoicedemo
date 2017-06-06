@@ -59,6 +59,7 @@ const getFoodInformation = async (payload) => {
           }
         ],
         text: buildMainsText(simpleItems),
+        reprompt: 'I didn\'t quite catch that. Could you repeat please?',
         options: { shouldEndSession: false },
         session: {}
       }
@@ -74,6 +75,7 @@ const getFoodInformation = async (payload) => {
           }
         ],
         text: buildModifierText(selected.modifiers[0]),
+        reprompt: 'I didn\'t quite catch that. Could you repeat please?',
         options: { shouldEndSession: false },
         session: {}
       }
