@@ -12,7 +12,7 @@ const createResponse = payload => {
   return {
     response: {
       ...speech,
-      ...rePrompt,
+      reprompt: rePrompt,
       ...options,
       ...dir
     },
