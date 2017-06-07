@@ -6,13 +6,13 @@ const createResponse = payload => {
   const { text, options, session, directives, reprompt } = payload
 
   const speech = text ? { outputSpeech: { type: 'PlainText', text } } : {}
-  const rePrompt = reprompt ? { outputSpeech: { type: 'PlainText', text: reprompt } } : {}
+  const rePrompt = reprompt ? { reprompt: { outputSpeech: { type: 'PlainText', text: reprompt } } } : {}
   const dir = directives ? { directives } : {}
 
   return {
     response: {
       ...speech,
-      reprompt: rePrompt,
+      ...rePrompt,
       ...options,
       ...dir
     },
