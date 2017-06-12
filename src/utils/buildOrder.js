@@ -4,7 +4,7 @@ import { steak } from '../../data/sections'
 import lower from './lower'
 
 const getSelection = (model, slots, items) =>
-  items.find(x => lower(x.name) === lower(slots[model.slots.delegateTrigger].value))
+  items.find(x => lower(x.name) === lower(slots[model.mainSelection].value))
 
 const getModifier = modifiers => name =>
   // NOTE remove 0 access
@@ -20,7 +20,7 @@ const buildOrder = model => (slots, items) => {
   const mainSelection = getSelection(model, slots, items)
   const { modifiers } = mainSelection || {}
 
-  const modifierSelections = pluck('value', Object.values(omit([ model.slots.delegateTrigger ], slots))).filter(x => !!x)
+  const modifierSelections = pluck('value', Object.values(omit([ model.mainSelection ], slots))).filter(x => !!x)
   const modifierOptions = mapModifiers(modifierSelections, modifiers)
 
   return {

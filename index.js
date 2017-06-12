@@ -11,8 +11,11 @@ app.use(bodyParser.json())
 
 app.post('/', async (req, res, next) => {
   console.log('REQUEST BODY >>>>>') // eslint-disable-line
-  // console.dir(req.body) // eslint-disable-line
+  console.dir(req.body) // eslint-disable-line
+  console.log('INTENT NAME >>>>>>>>>')
   console.dir(req.body.request.intent.name)
+  console.log('SLOTS SLOTS SLOTS >>>>>>>>>')
+
   console.dir(req.body.request.intent.slots)
   const { session: { application: { applicationId } } } = req.body
   if ( applicationId !== process.env.APP_ID ) {
