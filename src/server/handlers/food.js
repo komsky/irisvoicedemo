@@ -65,19 +65,16 @@ const getFoodInformation = async (payload) => {
       }
     }
 
-    if (mainsFilled(slots) && !cookingFilled(slots)) {
+    if (mainsFilled(slots)) {
       // const selected = items.find(x => lower(x.name) === lower(slots[foodModel.mainSelection].value))
       return {
         directives: [
           {
-            type: 'Dialog.ElicitSlot',
-            slotToElicit: 'mainsOptions'
+            type: 'Dialog.Delegate'
+            // slotToElicit: 'mainsOptions'
             // slotToElicit: 'cookingOptions'
           }
         ],
-        // text: buildModifierText(selected.modifiers[0]),
-        text: 'That option is unavailable, could you repeat please?',
-        reprompt: 'I didn\'t quite catch that. Could you repeat please?',
         options: { shouldEndSession: false },
         session: {}
       }
