@@ -3,7 +3,7 @@ import { getItem, getCategoryItems, checkout } from '../../../data/GXPRoutes'
 import sections from '../../../data/sections'
 import { foodModel } from '../../model'
 import { formatPath, slotsFilled, slotFilled, buildOrder, lower } from '../../utils'
-import { path, pick, isEmpty } from 'ramda'
+import { path, isEmpty } from 'ramda'
 const get = api(getItem.method)
 const post = api(checkout.method)
 
@@ -11,7 +11,7 @@ const mains = path([ 'foodAndDrink', 'categories', 'roomService', 'subCategories
 const pathName = formatPath(mains.id, getCategoryItems.path)
 
 const isFilled = slotsFilled(foodModel)
-const mainFilled = slotFilled(foodModel.slots[foodModel.mainSelection])
+const mainFilled = slotFilled(foodModel.mainSelection)
 // const cookingFilled = slotFilled('cookingOptions')
 
 const submitOrder = (slots, items) => {
