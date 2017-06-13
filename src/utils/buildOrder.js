@@ -21,7 +21,7 @@ const buildOrder = model => (slots, items) => {
   const { modifiers } = mainSelection || {}
 
   const modifierSelections = pluck('value', Object.values(omit([ model.mainSelection ], slots))).filter(x => !!x)
-  const modifierOptions = mapModifiers(modifierSelections, modifiers)
+  const modifierOptions = mapModifiers(modifierSelections, modifiers).filter(x => !!x)
 
   return {
     categoryItems: [

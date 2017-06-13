@@ -1,6 +1,6 @@
 
 const slotsFilled = model => slots => {
-  const { slots: { required } } = model
+  const { required } = model
   return required.every(name => !!slots[name].value)
 }
 

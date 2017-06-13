@@ -3,7 +3,7 @@ import { getItem, getCategoryItems, checkout } from '../../../data/GXPRoutes'
 import sections from '../../../data/sections'
 import { foodModel } from '../../model'
 import { formatPath, slotsFilled, slotFilled, buildOrder, lower } from '../../utils'
-import { path, pick } from 'ramda'
+import { path, isEmpty } from 'ramda'
 const get = api(getItem.method)
 const post = api(checkout.method)
 
@@ -11,8 +11,8 @@ const mains = path([ 'foodAndDrink', 'categories', 'roomService', 'subCategories
 const pathName = formatPath(mains.id, getCategoryItems.path)
 
 const isFilled = slotsFilled(foodModel)
-const mainsFilled = slotFilled('mainsOptions')
-const cookingFilled = slotFilled('cookingOptions')
+const mainFilled = slotFilled(foodModel.mainSelection)
+// const cookingFilled = slotFilled('cookingOptions')
 
 const submitOrder = (slots, items) => {
   const payload = buildOrder(foodModel)(slots, items)
@@ -30,6 +30,15 @@ const buildModifierText = (modifier, prompt) => {
   return `${text} ${options}`
 }
 
+const getInvalidSlots = (slots, model) =>
+  Object.entries(slots).reduce((acc, [ k, v ]) => {
+    const { value } = v
+    if (value) {
+      if (model.slots[k].options.map(lower).indexOf(lower(value)) < 0) acc.push(k)
+    }
+    return acc
+  }, [])
+
 const getFoodInformation = async (payload) => {
   const { intent: { slots, confirmationStatus }, dialogState } = payload.request
 
@@ -46,11 +55,11 @@ const getFoodInformation = async (payload) => {
       options: { shouldEndSession: true },
       session: {}
     }
-  } else {
-    const simpleItems = items.map(pick([ 'itemCode', 'name', 'longDescription', 'price', 'modifiers' ]))
+  }
 
-    // MAINS OPTION NOT YET FILLED
-    if (!mainsFilled(slots)) {
+  if (!isFilled(slots)) {
+
+    if (!mainFilled(slots)) {
       return {
         directives: [
           {
@@ -58,42 +67,62 @@ const getFoodInformation = async (payload) => {
             slotToElicit: 'mainsOptions'
           }
         ],
-        text: buildMainsText(simpleItems),
+        text: buildMainsText(items),
         reprompt: 'I didn\'t quite catch that. Could you repeat please?',
         options: { shouldEndSession: false },
         session: {}
       }
     }
 
-    if (mainsFilled(slots) && !cookingFilled(slots)) {
-      const selected = items.find(x => lower(x.name) === lower(slots[foodModel.mainSelection].value))
+    const invalidSlots = getInvalidSlots(slots, foodModel)
+
+    // THERE'S AN INVALID OPTION IN SLOTS SOMEWHERE
+    if (!isEmpty(invalidSlots)) {
+      const { invalidReprompt, options } = foodModel.slots[invalidSlots[0]]
       return {
         directives: [
           {
             type: 'Dialog.ElicitSlot',
-            slotToElicit: 'cookingOptions'
+            slotToElicit: invalidSlots[0]
           }
         ],
-        text: buildModifierText(selected.modifiers[0]),
+        text: invalidReprompt + options.join(','),
         reprompt: 'I didn\'t quite catch that. Could you repeat please?',
         options: { shouldEndSession: false },
         session: {}
       }
     }
 
-    if(isFilled(slots)) {
-      return {
-        directives: [
-          {
-            type: 'Dialog.Delegate',
-            slotToElicit: 'cookingOptions'
-          }
-        ],
-        options: { shouldEndSession: false },
-        session: {}
-      }
+    const emptySlots = Object.entries(slots)
+      .filter(([ k, v ]) => !v.value)
+      .map(([ k, v ]) => k)
+
+    const { prompt, options } = foodModel.slots[emptySlots[0]]
+    return {
+      directives: [
+        {
+          type: 'Dialog.ElicitSlot',
+          slotToElicit: emptySlots[0]
+        }
+      ],
+      text: prompt + options.join(','),
+      reprompt: 'I didn\'t quite catch that. Could you repeat please?',
+      options: { shouldEndSession: false },
+      session: {}
+    }
+
+  } else {
+    return {
+      directives: [
+        {
+          type: 'Dialog.Delegate'
+        }
+      ],
+      options: { shouldEndSession: false },
+      session: {}
     }
   }
+
 }
 
 export default getFoodInformation
