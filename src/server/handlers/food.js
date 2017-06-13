@@ -30,15 +30,20 @@ const buildModifierText = (modifier, prompt) => {
   return `${text} ${options}`
 }
 
-const getInvalidSlots = (slots, model) => {
+const getInvalidSlots = (slots, model) =>
   Object.entries(slots).reduce((acc, [ k, v ]) => {
     const { value } = v
+    // console.log('REDUCE >>>>', k)
+    // console.log('REDUCE >>>>', v)
+    // console.log('REDUCE >>>>', value)
+    // console.log('REDUCE >>>>', model)
     if (value) {
-      if (model[k].options.map(lower).indexOf(lower(value)) < 0) acc.push(k)
+      console.log('LOWER ARRAY >>>>', model.slots[k].options.map(lower))
+      console.log('VALUE >>>>>', value)
+      if (model.slots[k].options.map(lower).indexOf(lower(value)) < 0) acc.push(k)
     }
     return acc
   }, [])
-}
 
 const getFoodInformation = async (payload) => {
   const { intent: { slots, confirmationStatus }, dialogState } = payload.request
@@ -76,6 +81,7 @@ const getFoodInformation = async (payload) => {
     }
 
     const invalidSlots = getInvalidSlots(slots, foodModel)
+    console.log('INVALID SLOTS >>>>>>>', invalidSlots)
 
     // THERE'S AN INVALID OPTION IN SLOTS SOMEWHERE
     if (!isEmpty(invalidSlots)) {
@@ -98,7 +104,7 @@ const getFoodInformation = async (payload) => {
       .filter(([ k, v ]) => !v.value)
       .map(([ k, v ]) => k)
 
-    const { invalidReprompt, options } = foodModel.slots[emptySlots[0]]
+    const { prompt, options } = foodModel.slots[emptySlots[0]]
     return {
       directives: [
         {
@@ -106,7 +112,7 @@ const getFoodInformation = async (payload) => {
           slotToElicit: emptySlots[0]
         }
       ],
-      text: invalidReprompt + options.join(','),
+      text: prompt + options.join(','),
       reprompt: 'I didn\'t quite catch that. Could you repeat please?',
       options: { shouldEndSession: false },
       session: {}
