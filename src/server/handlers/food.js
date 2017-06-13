@@ -33,13 +33,7 @@ const buildModifierText = (modifier, prompt) => {
 const getInvalidSlots = (slots, model) =>
   Object.entries(slots).reduce((acc, [ k, v ]) => {
     const { value } = v
-    // console.log('REDUCE >>>>', k)
-    // console.log('REDUCE >>>>', v)
-    // console.log('REDUCE >>>>', value)
-    // console.log('REDUCE >>>>', model)
     if (value) {
-      console.log('LOWER ARRAY >>>>', model.slots[k].options.map(lower))
-      console.log('VALUE >>>>>', value)
       if (model.slots[k].options.map(lower).indexOf(lower(value)) < 0) acc.push(k)
     }
     return acc
@@ -81,7 +75,6 @@ const getFoodInformation = async (payload) => {
     }
 
     const invalidSlots = getInvalidSlots(slots, foodModel)
-    console.log('INVALID SLOTS >>>>>>>', invalidSlots)
 
     // THERE'S AN INVALID OPTION IN SLOTS SOMEWHERE
     if (!isEmpty(invalidSlots)) {
