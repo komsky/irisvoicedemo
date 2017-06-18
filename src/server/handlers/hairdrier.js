@@ -5,8 +5,8 @@ import { formatPath } from '../../utils'
 import { path } from 'ramda'
 const get = api(getItem.method)
 
-const hairdrier = path([ 'HotelItems', 'categories', 'hairdrier'], sections)
-const pathName = formatPath(hairdrier.code, getItem.path)
+const item = path([ 'HotelItems', 'categories', 'hairdrier'], sections)
+const pathName = formatPath(item.code, getItem.path)
 
 const getHairdrierInformation = async (payload) => {
   const res = await get(pathName, payload)
