@@ -5,7 +5,7 @@ import { formatPath } from '../../utils'
 import { path } from 'ramda'
 const get = api(getItem.method)
 
-const toronto = path([ 'HotelItems', 'information', 'toronto'], sections)
+const toronto = path([ 'HotelItems', 'categories', 'toronto'], sections)
 const pathName = formatPath(toronto.code, getItem.path)
 
 const getTorontInformation = async (payload) => {

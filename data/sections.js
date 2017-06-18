@@ -60,7 +60,7 @@ export default {
     HotelItems: {
         name: 'Voice',
         code: '53056ffd-e7d2-48a3-acdf-6e22145303c5',
-        information: {
+        categories: {
             name: 'Information',
             code: '87aad047-0af5-4233-bd27-8912ca214d39',
             pool: {
