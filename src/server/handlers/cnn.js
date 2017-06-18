@@ -1,11 +1,11 @@
 import api from '../api'
 import { getItem } from '../../../data/GXPRoutes'
-import voice_sections from '../../../data/voice_sections'
+import sections from '../../../data/sections'
 import { formatPath } from '../../utils'
 import { path } from 'ramda'
 const get = api(getItem.method)
 
-const cnn = path([ 'HotelItems', 'categories', 'cnn'], voice_sections)
+const cnn = path([ 'HotelItems', 'categories', 'cnn'], sections)
 const pathName = formatPath(cnn.code, getItem.path)
 
 const getCNNInformation = async (payload) => {

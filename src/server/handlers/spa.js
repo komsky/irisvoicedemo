@@ -1,11 +1,11 @@
 import api from '../api'
 import { getItem } from '../../../data/GXPRoutes'
-import voice_sections from '../../../data/voice_sections'
+import sections from '../../../data/sections'
 import { formatPath } from '../../utils'
 import { path } from 'ramda'
 const get = api(getItem.method)
 
-const cat_spaitem = path([ 'HotelItems', 'categories', 'spa'], voice_sections)
+const cat_spaitem = path([ 'HotelItems', 'categories', 'spa'], sections)
 const pathName = formatPath(spa.code, getItem.path)
 
 const getSpaInformation = async (payload) => {

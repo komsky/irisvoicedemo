@@ -1,11 +1,11 @@
 import api from '../api'
 import { getItem } from '../../../data/GXPRoutes'
-import voice_sections from '../../../data/voice_sections'
+import sections from '../../../data/sections'
 import { formatPath } from '../../utils'
 import { path } from 'ramda'
 const get = api(getItem.method)
 
-const restaurant = path([ 'HotelItems', 'categories', 'restaurant'], voice_sections)
+const restaurant = path([ 'HotelItems', 'categories', 'restaurant'], sections)
 const pathName = formatPath(restaurant.code, getItem.path)
 
 const getRestaurantInformation = async (payload) => {
