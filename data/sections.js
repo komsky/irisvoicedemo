@@ -44,7 +44,7 @@ export default {
   Heddon: {
         name: 'Heddon Group',
         code: 'ac6a0522-0315-4798-93f3-044b40edd7e8',
-        categories: [{
+        categories: {
             name: 'About Heddon',
             code: 'a4f85f01-5841-e711-80c2-000d3a222aa0',
             rewards: {
@@ -55,12 +55,12 @@ export default {
                 name: 'History',
                 code: 'cd5d485c-04d3-4bb4-91a4-9e88a52a4314'
             }
-        }]
+        }
     },
     HotelItems: {
         name: 'Voice',
         code: '53056ffd-e7d2-48a3-acdf-6e22145303c5',
-        categories: {
+        information: {
             name: 'Information',
             code: '87aad047-0af5-4233-bd27-8912ca214d39',
             pool: {

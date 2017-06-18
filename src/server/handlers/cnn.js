@@ -5,7 +5,7 @@ import { formatPath } from '../../utils'
 import { path } from 'ramda'
 const get = api(getItem.method)
 
-const cnn = path([ 'HotelItems', 'categories', 'cnn'], sections)
+const cnn = path([ 'HotelItems', 'information', 'cnn'], sections)
 const pathName = formatPath(cnn.code, getItem.path)
 
 const getCNNInformation = async (payload) => {
