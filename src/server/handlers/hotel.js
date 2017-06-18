@@ -1,16 +1,15 @@
 import api from '../api'
 import { getItem } from '../../../data/GXPRoutes'
-import sections from '../../../data/sections'
+import voice_sections from '../../../data/voice_sections'
 import { formatPath } from '../../utils'
 import { path } from 'ramda'
 const get = api(getItem.method)
 
-const pool = path([ 'HotelItems', 'categories', 'pool' ], sections)
-const pathName = formatPath(pool.code, getItem.path)
+const hotel = path([ 'Heddon', 'categories', 'rewards'], voice_sections)
+const pathName = formatPath(hotel.code, getItem.path)
 
-const getPoolInformation = async (payload) => {
+const getHotelInformation = async (payload) => {
   const res = await get(pathName, payload)
-
   // MAKE ACCESS LESS BRITTLE -> No 0 PROP ACCESS
   return {
     text: res.responses[0][getItem.key].content.longDescription,
@@ -18,5 +17,4 @@ const getPoolInformation = async (payload) => {
     session: res.session
   }
 }
-
-export default getPoolInformation
+export default getHotelInformation

@@ -1,4 +1,15 @@
 
-export { default as getPoolInformation } from './pool'
+//export { default as getPoolInformation } from './pool'
 export { default as getFoodInformation } from './food'
 export { default as getOrdersInformation } from './orders'
+
+export { default as getCNNInformation } from './cnn'
+export { default as getHairdrierInformation } from './hairdrier'
+export { default as getHistoryInformation } from './history'
+export { default as getHiTecInformation } from './hitec'
+export { default as getHotelInformation } from './hotel'
+export { default as getPoolInformation } from './pool'
+export { default as getRestaurantInformation } from './restaurant'
+export { default as getRewardsInformation } from './rewards'
+export { default as getSpaInformation } from './spa'
+export { default as getTorontInformation } from './toronto'
