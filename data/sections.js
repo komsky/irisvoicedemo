@@ -90,6 +90,18 @@ export default {
             toronto: {
                 name: 'About Toronto',
                 code: 'c973f618-42b4-4b25-b9b6-7dde0f29e218'
+            },
+            lights_on: {
+                name: 'Lights On',
+                code: '508efda4-80f7-4873-a8b0-9b8458252af3'
+            },
+            lights_off: {
+                name: 'Lights Off',
+                code: '63ab26c3-4920-4654-9664-704beddbfa2f'
+            },
+            tv_on: {
+                name: 'TV On',
+                code: '16660510-b2e0-43e4-ab87-3d49187ec36a'
             }
         },
         in_room_dining: {
