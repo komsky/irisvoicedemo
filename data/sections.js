@@ -1,19 +1,19 @@
 
 export default {
   roomService: {
-    id: '53056ffd-e7d2-48a3-acdf-6e22145303c5',
+    id: 'bc5bd705-3ea2-47cb-9aa3-c3e0bacaf1a9',
     name: 'Room Service'
   },
   foodAndDrink: {
-    id: '21c52df1-541e-4166-afb0-710acd50403e',
+    id: '6464eb45-c3dc-4fcf-a33a-9bb637dfea88',
     name: 'Food & Drink',
     categories: {
       roomService: {
         name: 'Dine in your room',
-        id: 'b0a59c6e-1c20-4631-87e9-916ed118a923',
+        id: '612f0e32-03b4-4f1d-bcad-10cc3426e4eb',
         subCategories: {
           mains: {
-            id: '05fd5f01-5841-e711-80c2-000d3a222aa0',
+            id: '612f0e32-03b4-4f1d-bcad-10cc3426e4eb',
             name: 'Main Courses'
           }
         }
@@ -21,26 +21,26 @@ export default {
     }
   },
   information: {
-    id: '92efa3b5-d0fa-44cc-96d2-b931759a639d',
+    id: '6464eb45-c3dc-4fcf-a33a-9bb637dfea88',
     name: 'Useful Information',
     categories: {
       'A-Z': {
-        id: '9145d5d6-ac7a-45cd-80aa-5e984ed6dd7f',
+        id: '87aad047-0af5-4233-bd27-8912ca214d39',
         name: 'A-Z Information'
       },
       facilites: {
-        id: '2054200b-972f-4734-bef7-3563648da40c',
+        id: '87aad047-0af5-4233-bd27-8912ca214d39',
         name: 'Facilities',
         categoryItems: {
           pool: {
-            id: 'acee4b9d-eab7-45b5-bef8-af428223f068',
+            id: 'd24f5270-d594-41ff-8b77-681f82cbd873',
             name: 'Pool'
           }
         }
       }
     }
   },
-  steak: '09e98548-2f80-4047-8b39-b38f78257cac',
+  steak: '941d7fce-e796-4b8c-a5c5-40f10bfe1e85',
   Heddon: {
         name: 'Heddon Group',
         code: 'ac6a0522-0315-4798-93f3-044b40edd7e8',

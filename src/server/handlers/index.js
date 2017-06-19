@@ -1,8 +1,6 @@
 
-//export { default as getPoolInformation } from './pool'
 export { default as getFoodInformation } from './food'
 export { default as getOrdersInformation } from './orders'
-
 export { default as getCNNInformation } from './cnn'
 export { default as getHairdrierInformation } from './hairdrier'
 export { default as getHistoryInformation } from './history'
