@@ -24,5 +24,10 @@ export default {
     path: 'Interactive/Order',
     key: 'getOrders',
     method: 'GET'
+  },
+  addServiceRequest: {
+    path: 'Interactive/ServiceRequests',
+    key: 'addServiceRequest',
+    method: 'PUT'
   }
 }

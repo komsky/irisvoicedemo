@@ -5,12 +5,11 @@ import { formatPath } from '../../utils'
 import { path } from 'ramda'
 const get = api(getItem.method)
 
-const item = path([ 'HotelItems', 'categories', 'pool' ], sections)
+const item = path([ 'Heddon', 'categories', 'rewards'], sections)
 const pathName = formatPath(item.code, getItem.path)
 
-const getPoolInformation = async (payload) => {
+const getHotelInformation = async (payload) => {
   const res = await get(pathName, payload)
-
   // MAKE ACCESS LESS BRITTLE -> No 0 PROP ACCESS
   return {
     text: res.responses[0][getItem.key].content.longDescription,
@@ -18,5 +17,4 @@ const getPoolInformation = async (payload) => {
     session: res.session
   }
 }
-
-export default getPoolInformation
+export default getHotelInformation
