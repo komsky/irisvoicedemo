@@ -3,7 +3,7 @@ import { steak } from '../../data/sections'
 import lower from './lower'
 
 
-const buildServiceRequest = model => (slots, items, itemCode) => {
+const buildServiceRequest = model => (itemCode) => {
 
   return {
     requestModel: {
