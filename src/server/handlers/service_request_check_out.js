@@ -16,12 +16,14 @@ const doRequestCheckOut = async (payload) => {
     }
     console.log('Payload data: ' , payload)
 
-    const res = await put(addServiceRequest.path, payload)
-    const orderId = res.responses[0][addServiceRequest.key].content.order.id
-    const returnText = `Your service request for for ${service_request.name} was succesfully submitted; your request number is ${orderId}`
+    //const res = await put(addServiceRequest.path, payload)
+    const res = put(addServiceRequest.path, payload)
+    //const orderId = res.responses[0][addServiceRequest.key].content.order.id
+    //const returnText = `Your service request for for ${service_request.name} was succesfully submitted; your request number is ${orderId}`
+    const returnText = `Your service request for for ${service_request.name} was succesfully submitted`
     
     console.log('returnText: ' , returnText)
-    console.log('res.sessionToken: ' , res.sessionToken)
+    //console.log('res.sessionToken: ' , res.sessionToken)
   return {
     text: returnText,
     options: { shouldEndSession: true },
