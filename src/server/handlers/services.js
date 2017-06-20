@@ -25,9 +25,9 @@ const getServicesInformation = async (payload) => {
 
   const res = await get(pathName, payload)
   const items = res.responses[0][getCategoryItems.key].content.categoryItems
-  const itemsText = items.map(x => x.name).join(',')
+
   return {
-    text: itemsText,
+    text: buildServicesText,
     options: { shouldEndSession: true },
     session: res.session
   }
