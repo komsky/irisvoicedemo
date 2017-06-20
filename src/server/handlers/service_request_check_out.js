@@ -9,7 +9,7 @@ const put = api(addServiceRequest.method)
 
 const item = path([ 'HotelItems', 'service_requests', 'check_out' ], sections)
 const payload = buildServiceRequest(item.code)
-console.log(payload.toString)
+console.log("Payload " + payload.toString)
 
 const doRequestCheckOut = async (payload) => {
     
