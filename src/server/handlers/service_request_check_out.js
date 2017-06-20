@@ -21,7 +21,7 @@ const doRequestCheckOut = async (payload) => {
     const returnText = `Your service request for for ${service_request.name} was succesfully submitted; your request number is ${orderId}`
     
     console.log('returnText: ' , returnText)
-    console.log('res.session: ' , res.session)
+    console.log('res.sessionToken: ' , res.sessionToken)
   return {
     text: returnText,
     options: { shouldEndSession: true },
