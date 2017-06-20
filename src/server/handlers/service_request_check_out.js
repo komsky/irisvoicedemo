@@ -20,7 +20,8 @@ const doRequestCheckOut = async (payload) => {
     const res = await put(addServiceRequest.path, payload)
     const orderId = res.responses[0][addServiceRequest.key].content.order.id
     const returnText = `Your service request for for ${request.name} was succesfully submitted; your request number is ${orderId}`
-
+    
+    console.log('returnText ' , returnText)
   return {
     text: returnText,
     options: { shouldEndSession: true },
