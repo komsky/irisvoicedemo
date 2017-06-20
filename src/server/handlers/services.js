@@ -25,9 +25,11 @@ const getServicesInformation = async (payload) => {
 
   const res = await get(pathName, payload)
   const items = res.responses[0][getCategoryItems.key].content.categoryItems
+  const itemsText = items.map(x => x.name).join(',')
+  const returnText = `We offer the following services, please select from the following ${itemsText}`
 
   return {
-    text: buildServicesText,
+    text: returnText,
     options: { shouldEndSession: true },
     session: res.session
   }
