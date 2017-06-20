@@ -25,9 +25,9 @@ export default {
     key: 'getOrders',
     method: 'GET'
   },
-  serviceRequest: {
+  addServiceRequest: {
     path: 'Interactive/ServiceRequests',
-    key: 'sendServiceRequest',
+    key: 'addServiceRequest',
     method: 'PUT'
   }
 }
