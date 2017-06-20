@@ -13,7 +13,7 @@ console.log(payload.toString)
 
 const doRequestCheckOut = async (payload) => {
     
-    put(addServiceRequest.path, payload)
+    const res = await put(addServiceRequest.path, payload)
 
   // MAKE ACCESS LESS BRITTLE -> No 0 PROP ACCESS
   return {
