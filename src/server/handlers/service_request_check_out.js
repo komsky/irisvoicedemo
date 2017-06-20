@@ -5,23 +5,23 @@ import { formatPath, buildServiceRequest, lower } from '../../utils'
 import { path, isEmpty } from 'ramda'
 const put = api(addServiceRequest.method)
 
-const request = path([ 'HotelItems', 'service_requests', 'check_out' ], sections)
+const service_request = path([ 'HotelItems', 'service_requests', 'check_out' ], sections)
 
 const doRequestCheckOut = async (payload) => {
 
     payload = {
-        categoryItemCode: request.code,
+        categoryItemCode: service_request.code,
         deliveryDateTime: new Date().toISOString(),
         isDeliveryDateTimeUtc: true,
     }
-
-    console.log('payload 111' , payload)
+    console.log('Payload data: ' , payload)
 
     const res = await put(addServiceRequest.path, payload)
     const orderId = res.responses[0][addServiceRequest.key].content.order.id
-    const returnText = `Your service request for for ${request.name} was succesfully submitted; your request number is ${orderId}`
+    const returnText = `Your service request for for ${service_request.name} was succesfully submitted; your request number is ${orderId}`
     
-    console.log('returnText ' , returnText)
+    console.log('returnText: ' , returnText)
+    console.log('res.session: ' , res.session)
   return {
     text: returnText,
     options: { shouldEndSession: true },
