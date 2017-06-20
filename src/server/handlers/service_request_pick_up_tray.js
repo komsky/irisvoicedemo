@@ -5,9 +5,9 @@ import { formatPath, buildServiceRequest, lower } from '../../utils'
 import { path, isEmpty } from 'ramda'
 const put = api(addServiceRequest.method)
 
-const service_request = path([ 'HotelItems', 'service_requests', 'check_out' ], sections)
+const service_request = path([ 'HotelItems', 'service_requests', 'pick_up_tray' ], sections)
 
-const doRequestCheckOut = async (payload) => {
+const doRequestPickUpTray = async (payload) => {
 
     payload = {
         categoryItemCode: service_request.code,
@@ -31,4 +31,4 @@ const doRequestCheckOut = async (payload) => {
   }
 }
 
-export default doRequestCheckOut
+export default doRequestPickUpTray

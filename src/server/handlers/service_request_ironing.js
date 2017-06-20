@@ -5,9 +5,9 @@ import { formatPath, buildServiceRequest, lower } from '../../utils'
 import { path, isEmpty } from 'ramda'
 const put = api(addServiceRequest.method)
 
-const service_request = path([ 'HotelItems', 'service_requests', 'check_out' ], sections)
+const service_request = path([ 'HotelItems', 'service_requests', 'ironing' ], sections)
 
-const doRequestCheckOut = async (payload) => {
+const doRequestIroning = async (payload) => {
 
     payload = {
         categoryItemCode: service_request.code,
@@ -20,7 +20,7 @@ const doRequestCheckOut = async (payload) => {
     const res = put(addServiceRequest.path, payload)
     //const orderId = res.responses[0][addServiceRequest.key].content.order.id
     //const returnText = `Your service request for ${service_request.name} was succesfully submitted; your request number is ${orderId}`
-    const returnText = `Your service request for ${service_request.name} was succesfully submitted`
+    const returnText = `Your request for ${service_request.name} was succesfully submitted`
     
     console.log('returnText: ' , returnText)
     //console.log('res.sessionToken: ' , res.sessionToken)
@@ -31,4 +31,4 @@ const doRequestCheckOut = async (payload) => {
   }
 }
 
-export default doRequestCheckOut
+export default doRequestIroning
