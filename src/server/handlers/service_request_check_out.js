@@ -6,7 +6,7 @@ import { path, isEmpty } from 'ramda'
 const put = api(addServiceRequest.method)
 
 const request = path([ 'HotelItems', 'service_requests', 'check_out' ], sections)
-const payload = {
+const data = {
     categoryItemCode: request.code,
     deliveryDateTime: new Date().toISOString(),
     isDeliveryDateTimeUtc: true,
@@ -15,10 +15,9 @@ const payload = {
 
 const doRequestCheckOut = async (payload) => {
 
-console.log('111' , payload)
-System.out.println("doRequestCheckOut payload: " , payload);
+    console.log('111' , data)
 
-    const res = await put(addServiceRequest.path, payload)
+    const res = await put(addServiceRequest.path, data)
     const orderId = res.responses[0][addServiceRequest.key].content.order.id
     const returnText = `Your service request for for ${request.name} was succesfully submitted; your request number is ${orderId}`
 
