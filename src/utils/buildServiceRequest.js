@@ -1,5 +1,4 @@
 import { pluck, omit } from 'ramda'
-import { steak } from '../../data/sections'
 import lower from './lower'
 
 
