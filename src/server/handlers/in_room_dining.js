@@ -34,7 +34,7 @@ const getFoodInformation = async (payload) => {
       directives: [
             {
               type: 'Dialog.ElicitSlot',
-              slotToElicit: 'confirmationSlot'
+              slotToElicit: 'mainOptions'
             }
           ],
           text: returnText,
