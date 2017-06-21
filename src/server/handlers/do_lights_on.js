@@ -40,7 +40,7 @@ const doLightsOn = async (payload) => {
             slotToElicit: 'mainsOptions'
           }
         ],
-        text: buildMainsText(items),
+        text: 'Please confirm you wish to continue',
         reprompt: 'I didn\'t quite catch that. Could you repeat please?',
         options: { shouldEndSession: false },
         session: {}
