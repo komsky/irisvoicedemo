@@ -21,12 +21,18 @@ const doLightsOn = async (payload) => {
   console.log('----------------------------------------------')
   console.log('----------------------------------------------')
   console.log('----------------------------------------------', value)
-  if ((value !== null) && (value === 'yes' || value === 'confirmed')) {
+  if ((value !== null) && (value === 'yes' || value === 'confirmed' || value === 'confirm')) {
     console.log('doLightsOn confirmationStatus = CONFIRMED ')
     const res = await get(pathName, payload)
 
     return {
       text: res.responses[0][getItem.key].content.longDescription,
+      options: { shouldEndSession: true },
+      session: res.session
+    }
+  } else if ((value !== null) && (value === 'no' || value === 'not' || value === 'reject')) {
+    return {
+      text: "Your request was cancelled, thank you.",
       options: { shouldEndSession: true },
       session: res.session
     }
