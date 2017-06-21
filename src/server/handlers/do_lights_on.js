@@ -9,16 +9,16 @@ const get = api(getItem.method)
 const item = path([ 'HotelItems', 'categories', 'lights_on'], sections)
 const pathName = formatPath(item.code, getItem.path)
 
-const isFilled = slotsFilled(confirmationModel)
-const confirmationFilled = slotFilled(confirmationModel.confirmationSelection)
+//const isFilled = slotsFilled(confirmationModel)
+//const confirmationFilled = slotFilled(confirmationModel.confirmationSelection)
 
 const doLightsOn = async (payload) => {
-  const { intent: { slots, confirmationStatus }, dialogState } = payload.request
+  const { intent: { slots, confirmationStatus, confirmationSlot }, dialogState } = payload.request
     
   console.log('doLightsOn')
-  console.log('confirmationStatus ' , confirmationStatus)
+  console.log('confirmationSlot.value ' , confirmationSlot.value)
   
-  if (confirmationStatus === 'CONFIRMED') {
+  if (confirmationSlot.value === 'CONFIRMED') {
     console.log('doLightsOn confirmationStatus = CONFIRMED ')
     const res = await get(pathName, payload)
 
