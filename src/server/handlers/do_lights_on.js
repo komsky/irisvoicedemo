@@ -16,8 +16,9 @@ const doLightsOn = async (payload) => {
   const { intent: { slots, confirmationStatus }, dialogState } = payload.request
   // CHECK IF ALL SLOTS ARE FILLED
   // IF YES, SUBMIT, ELSE CARRY ON AS NORMAL
-  if (dialogState === 'COMPLETED' && confirmationStatus === 'CONFIRMED') {
-    
+  console.log('doLightsOn')
+  if (confirmationStatus === 'CONFIRMED') {
+    console.log('doLightsOn confirmationStatus = CONFIRMED ')
     const res = await get(pathName, payload)
 
     // MAKE ACCESS LESS BRITTLE -> No 0 PROP ACCESS
