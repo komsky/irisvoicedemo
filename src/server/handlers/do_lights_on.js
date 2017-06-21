@@ -36,7 +36,7 @@ const doLightsOn = async (payload) => {
       return {
         directives: [
           {
-            type: 'Dialog.ConfirmSlot',
+            type: 'Dialog.Delegate',
             slotToElicit: 'confirmation'
           }
         ],
