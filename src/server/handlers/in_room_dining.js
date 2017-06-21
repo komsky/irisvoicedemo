@@ -18,7 +18,9 @@ const getFoodInformation = async (payload) => {
   const itemsText = items.map(x => x.name).join(',')
   const returnText = `Please select from the following; ${itemsText}`
 
-  if (value !== null) {
+  if (value !== null && value !== '') {
+
+      console.log('value = ' , value)
 
       return {
           text: 'You have selected ${value}',
