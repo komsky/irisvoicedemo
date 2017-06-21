@@ -33,7 +33,7 @@ const doLightsOn = async (payload) => {
       directives: [
         {
           type: 'Dialog.ConfirmSlot',
-          slotToConfirm: 'confirmationSlot'
+          slotToElicit: 'confirmationSlot'
         }
       ],
       text: 'Please confirm you wish to continue',
