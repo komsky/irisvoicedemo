@@ -13,7 +13,7 @@ const isFilled = slotsFilled(confirmationModel)
 const confirmationFilled = slotFilled(confirmationModel.confirmationSelection)
 
 const doLightsOn = async (payload) => {
-  const { intent: { slots, confirmationStatus }, dialogState } = payload.request
+  const { intent: { confirmationSlot, confirmationStatus }, dialogState } = payload.request
   // CHECK IF ALL SLOTS ARE FILLED
   // IF YES, SUBMIT, ELSE CARRY ON AS NORMAL
   console.log('doLightsOn')
