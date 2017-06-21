@@ -17,6 +17,7 @@ const doLightsOn = async (payload) => {
   // CHECK IF ALL SLOTS ARE FILLED
   // IF YES, SUBMIT, ELSE CARRY ON AS NORMAL
   console.log('doLightsOn')
+  console.log('confirmationStatus ' , confirmationStatus)
   if (confirmationStatus === 'CONFIRMED') {
     console.log('doLightsOn confirmationStatus = CONFIRMED ')
     const res = await get(pathName, payload)
@@ -29,7 +30,7 @@ const doLightsOn = async (payload) => {
     }
   }
 
-  console.log('Slots not filled')
+  
 
   return {
       directives: [
