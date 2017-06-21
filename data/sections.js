@@ -93,7 +93,7 @@ export default {
             },
             lights_on: {
                 name: 'Lights On',
-                confirmationMsg: 'Please confirm you wish to continue; You can simply say; yes; or; no',
+                confirmationMsg: 'Please confirm you wish to turn; on; your; lights; You can simply say; yes; or; no',
                 rejectionMsg: 'Your request was cancelled; thank you',
                 repromptMsg: 'I didn\'t quite catch that; You can simply say; yes; or; no',
                 code: '508efda4-80f7-4873-a8b0-9b8458252af3'
