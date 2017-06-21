@@ -28,13 +28,15 @@ const doLightsOn = async (payload) => {
     }
   }
 
-  if (!confirmationFilled(slots)) {
+  //if (!isFilled(slots)) {
+    //console.log('Slots not filled')
+
+    if (!confirmationFilled(slots)) {
       console.log('confirmationFilled not filled')
       return {
         directives: [
           {
-            //type: 'Dialog.ElicitSlot',
-            type: 'Dialog.Delegate',
+            type: 'Dialog.ConfirmIntent',
             slotToElicit: 'confirmation'
           }
         ],
@@ -47,12 +49,7 @@ const doLightsOn = async (payload) => {
       console.log('confirmationFilled filled')
     }
 
-  /*if (!isFilled(slots)) {
-    console.log('Slots not filled')
-
-    
-
-  } else {
+  /*} else {
     return {
       directives: [
         {
