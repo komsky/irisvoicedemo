@@ -39,7 +39,7 @@ const getInvalidSlots = (slots, model) =>
     return acc
   }, [])
 
-const getFoodInformation = async (payload) => {
+const getFoodInformation_old = async (payload) => {
   const { intent: { slots, confirmationStatus }, dialogState } = payload.request
 
   const res = await get(pathName, payload)
@@ -125,4 +125,4 @@ const getFoodInformation = async (payload) => {
 
 }
 
-export default getFoodInformation
+export default getFoodInformation_old

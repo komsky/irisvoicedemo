@@ -6,16 +6,16 @@ import { formatPath, buildServiceRequest, lower } from '../../utils'
 import { path, isEmpty } from 'ramda'
 const get = api(getCategoryItems.method)
 
-const items = path([ 'HotelItems', 'service_requests' ], sections)
+const items = path([ 'HotelItems', 'in_room_dining' ], sections)
 const pathName = formatPath(items.code, getCategoryItems.path)
 
-const getServicesInformation = async (payload) => {
+const getFoodInformation = async (payload) => {
   const { intent: { slots, confirmationStatus }, dialogState } = payload.request
 
   const res = await get(pathName, payload)
   const items = res.responses[0][getCategoryItems.key].content.categoryItems
   const itemsText = items.map(x => x.name).join(',')
-  const returnText = `We offer the following services, please select from the following; ${itemsText}`
+  const returnText = `Please select from the following; ${itemsText}`
 
   return {
     text: returnText,
@@ -24,4 +24,4 @@ const getServicesInformation = async (payload) => {
   }
 }
 
-export default getServicesInformation
+export default getFoodInformation
