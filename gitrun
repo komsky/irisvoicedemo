@@ -1,0 +1,6 @@
+#!/bin/bash 
+echo Push to git 
+cd /Users/golanshay/Workspace/Node.js projects/iRiS/irisvoicedemo
+git add .
+git commit -m "changes"
+git push

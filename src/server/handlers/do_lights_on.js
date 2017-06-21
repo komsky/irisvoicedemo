@@ -13,12 +13,12 @@ const isFilled = slotsFilled(confirmationModel)
 const confirmationFilled = slotFilled(confirmationModel.confirmationSelection)
 
 const doLightsOn = async (payload) => {
-  const { intent: { slots, confirmationStatus }, dialogState } = payload.request
+  const { intent: { slotToConfirm, confirmationStatus }, dialogState } = payload.request
     
   console.log('doLightsOn')
-  console.log('confirmationStatus ' , confirmationStatus)
+  console.log('confirmationStatus ' , slotToConfirm.confirmationStatus)
   
-  if (confirmationStatus === 'CONFIRMED') {
+  if (slotToConfirm.confirmationStatus === 'CONFIRMED') {
     console.log('doLightsOn confirmationStatus = CONFIRMED ')
     const res = await get(pathName, payload)
 
@@ -35,7 +35,8 @@ const doLightsOn = async (payload) => {
   return {
       directives: [
         {
-          type: 'Dialog.ConfirmSlot'
+          type: 'Dialog.ConfirmSlot',
+          slotToConfirm: 'confirmationSlot'
         }
       ],
       text: 'Please confirm you wish to continue',
