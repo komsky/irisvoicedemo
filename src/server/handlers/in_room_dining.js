@@ -46,17 +46,17 @@ const getFoodInformation = async (payload) => {
       }
 
       if (value === `steak` || value === `flatiron steak`) {
-
+        111
       } else if (value === `burger` || value === `h burger` || value === `hamburger`) {
-        
+        111
       } else if (value === `Lobster` || value === `Lobster Bisque`) {
-        
+        111
       } else if (value === `Cheese burger`) {
-        
+        111
       } else if (value === `Chocolate cake` || value === `cake`) {
-        
+        111
       } else if (value === `Seafood paella` || value === `paella`) {
-        
+        111
       } else if (value === `Caesar salad` || value === `salad`) {
         
       } else {
@@ -73,16 +73,18 @@ const getFoodInformation = async (payload) => {
                 session: {}  
           }
       }
+
+      submitOrder()
       
       return {
           directives: [
                   {
                     type: 'Dialog.ElicitSlot',
-                    slotToElicit: 'mainOptions'
+                    slotToElicit: 'confirmationSlot'
                   }
                 ],
           text: `You have selected ${value}; is that correct?`,
-          options: { shouldEndSession: true },
+          options: { shouldEndSession: false },
           session: res.session
       }
   }
