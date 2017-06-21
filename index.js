@@ -18,6 +18,8 @@ app.post('/', async (req, res, next) => {
 
   console.dir(req.body.request.intent.slots)
   const { session: { application: { applicationId } } } = req.body
+  process.env['APP_ID'] = 'amzn1.ask.skill.a9b7af41-6a9f-482f-8681-33f8772d1e89';
+  console.log('applicationId', applicationId)
   if ( applicationId !== process.env.APP_ID ) {
     res.writeHead(400)
     res.end('Bad Request')
