@@ -18,17 +18,14 @@ const getFoodInformation = async (payload) => {
   const itemsText = items.map(x => x.name).join(',')
   const returnText = `Please select from the following; ${itemsText}`
 
-  if (value !== null && value !== '') {
-
-      console.log('value = ' , value)
-
+  if (name == null || name == '') {
       return {
           text: 'You have selected ${value}',
           options: { shouldEndSession: true },
           session: res.session
       }
   } else {
-
+      console.log('name = ' , name)
       return {
       //text: returnText,
       //options: { shouldEndSession: true },
