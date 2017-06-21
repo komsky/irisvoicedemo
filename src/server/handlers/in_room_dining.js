@@ -39,7 +39,7 @@ const getFoodInformation = async (payload) => {
 
       console.log('value = ' , value)
       return {
-          text: 'You have selected ${value}',
+          text: 'You have selected ${value}; let me get order that for you',
           options: { shouldEndSession: true },
           session: res.session
       }
