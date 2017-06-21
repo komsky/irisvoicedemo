@@ -16,7 +16,7 @@ const doLightsOn = async (payload) => {
   const { intent: { confirmationSlot, confirmationStatus }, dialogState } = payload.request
     
   console.log('doLightsOn')
-  console.log('confirmationStatus ' , confirmationStatus)
+  console.log('confirmationSlot ' , confirmationSlot)
   
   if (confirmationSlot.confirmationStatus === 'CONFIRMED') {
     console.log('doLightsOn confirmationStatus = CONFIRMED ')
