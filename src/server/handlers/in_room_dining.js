@@ -30,23 +30,25 @@ const getFoodInformation = async (payload) => {
                   }
                 ],
                 text: returnText,
-                reprompt: 'I didn\'t quite catch that. Could you repeat please?',
+                reprompt: `I didn\'t quite catch that. Could you repeat please?`,
                 options: { shouldEndSession: false },
                 session: {}  
           }
   }
-  if (value !== null && value !== '') {
+  if (value !== null && value !== ``) {
 
-      console.log('value = ' , value)
+      console.log(`value = ` , value)
+      const returnText = `You have selected ${value}; let me get order that for you`
+
       return {
-          text: 'You have selected ${value}; let me get order that for you',
+          text: returnText,
           options: { shouldEndSession: true },
           session: res.session
       }
   }
 
   return {
-          text: 'Sorry, didn\'t get that; please try again',
+          text: `Sorry, didn\'t get that; please try again`,
           options: { shouldEndSession: true },
           session: res.session
       }
