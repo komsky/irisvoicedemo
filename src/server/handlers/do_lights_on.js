@@ -9,35 +9,29 @@ const get = api(getItem.method)
 const item = path([ 'HotelItems', 'categories', 'lights_on'], sections)
 const pathName = formatPath(item.code, getItem.path)
 
-//const isFilled = slotsFilled(confirmationModel)
-//const confirmationFilled = slotFilled(confirmationModel.confirmationSelection)
-
 const doLightsOn = async (payload) => {
   const { intent: { slots: { confirmationSlot: {value} }, confirmationStatus }, dialogState } = payload.request
-  console.log('doLightsOn')
-  console.log('----------------------------------------------')
-  console.log('----------------------------------------------')
-  console.log('----------------------------------------------')
-  console.log('----------------------------------------------')
-  console.log('----------------------------------------------')
-  console.log('----------------------------------------------', value)
-  if ((value !== null) && (value === 'yes' || value === 'confirmed' || value === 'confirm')) {
-    console.log('doLightsOn confirmationStatus = CONFIRMED ')
-    const res = await get(pathName, payload)
+  if (value !== null) {
+    console.log('value: ', value)
 
-    return {
-      text: res.responses[0][getItem.key].content.longDescription,
-      options: { shouldEndSession: true },
-      session: res.session
-    }
-  } else if ((value !== null) && (value === 'no' || value === 'not' || value === 'reject')) {
-    return {
-      text: "Your request was cancelled, thank you.",
-      options: { shouldEndSession: true },
-      session: res.session
+    if (value === 'yes' || value === 'confirmed' || value === 'confirm') {
+      const res = await get(pathName, payload)
+
+      return {
+        text: res.responses[0][getItem.key].content.longDescription,
+        options: { shouldEndSession: true },
+        session: res.session
+      }
+    } else if (value === 'no' || value === 'not' || value === 'nope') {
+      
+      return {
+        text: "Your request was cancelled, thank you.",
+        options: { shouldEndSession: true },
+        session: res.session
+      }
     }
   }
-
+  
   return {
       directives: [
         {
