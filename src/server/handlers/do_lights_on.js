@@ -12,7 +12,6 @@ const pathName = formatPath(item.code, getItem.path)
 const doLightsOn = async (payload) => {
   const { intent: { slots: { confirmationSlot: {value} }, confirmationStatus }, dialogState } = payload.request
   if (value !== null) {
-    console.log('value: ', value)
 
     if (value === 'yes' || value === 'confirmed' || value === 'confirm') {
       const res = await get(pathName, payload)
@@ -24,9 +23,9 @@ const doLightsOn = async (payload) => {
       }
     } else if (value === 'no' || value === 'not' || value === 'nope') {
       const res = await get(pathName, payload)
-      
+
       return {
-        text: "Your request was cancelled, thank you.",
+        text: item.rejectionMsg,
         options: { shouldEndSession: true },
         session: res.session
       }
@@ -40,8 +39,8 @@ const doLightsOn = async (payload) => {
           slotToElicit: 'confirmationSlot'
         }
       ],
-      text: 'Please confirm you wish to continue; You can simply say; yes; or; no',
-      reprompt: 'I didn\'t quite catch that; You can simply say; yes; or; no',
+      text: item.confirmationMsg,
+      reprompt: item.repromptMsg,
       options: { shouldEndSession: false },
       session: {}
     }

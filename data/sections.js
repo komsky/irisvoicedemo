@@ -93,6 +93,9 @@ export default {
             },
             lights_on: {
                 name: 'Lights On',
+                confirmationMsg: 'Please confirm you wish to continue; You can simply say; yes; or; no',
+                rejectionMsg: 'Your request was cancelled; thank you',
+                repromptMsg: 'I didn\'t quite catch that; You can simply say; yes; or; no',
                 code: '508efda4-80f7-4873-a8b0-9b8458252af3'
             },
             lights_off: {
@@ -141,18 +144,30 @@ export default {
             code: '9524bc48-20e5-499b-af17-81e972a84a51',
             check_out: {
                 name: 'Check-out',
+                confirmationMsg: 'Please confirm you wish to check;out; You can simply say; yes; or; no',
+                rejectionMsg: 'Your request was cancelled; thank you',
+                repromptMsg: 'I didn\'t quite catch that; You can simply say; yes; or; no',
                 code: 'aa507132-240c-4326-acd2-92ba4b438043'
             },
             make_up_my_room:{
                 name: 'Make up my room',
+                confirmationMsg: 'Please confirm you wish to make; up; your; room; You can simply say; yes; or; no',
+                rejectionMsg: 'Your request was cancelled; thank you',
+                repromptMsg: 'I didn\'t quite catch that; You can simply say; yes; or; no',
                 code: 'bc5bd705-3ea2-47cb-9aa3-c3e0bacaf1a9'
             },
             ironing:{
                 name: 'Iron & Ironing board',
+                confirmationMsg: 'Please confirm you wish an; ironing; board; You can simply say; yes; or; no',
+                rejectionMsg: 'Your request was cancelled; thank you',
+                repromptMsg: 'I didn\'t quite catch that; You can simply say; yes; or; no',
                 code: 'eca65c05-6844-403d-9c3d-7bf688c15ff6'
             },
             pick_up_tray:{
                 name: 'Pick-up my tray',
+                confirmationMsg: 'Please confirm you wish to; pick; up; your; tray; You can simply say; yes; or; no',
+                rejectionMsg: 'Your request was cancelled; thank you',
+                repromptMsg: 'I didn\'t quite catch that; You can simply say; yes; or; no',
                 code: 'ff1c0083-002e-484f-992b-3d53d743670c'
             }
         }
