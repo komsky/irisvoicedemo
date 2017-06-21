@@ -46,7 +46,7 @@ const doLightsOn = async (payload) => {
         }
       ],
       text: 'Please confirm you wish to continue',
-      reprompt: 'I didn\'t quite catch that. Could you repeat please?',
+      reprompt: 'I didn\'t quite catch that; You can simply say; yes; or; no',
       options: { shouldEndSession: false },
       session: {}
     }
