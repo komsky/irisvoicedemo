@@ -16,13 +16,12 @@ const doLightsOn = async (payload) => {
   const { intent: { slots, confirmationStatus }, dialogState } = payload.request
     
   console.log('doLightsOn')
-  console.log('confirmationStatus ' , payload.request.intent.slots.confirmationStatus)
+  console.log('confirmationStatus ' , payload.request.intent.slots)
   
-  if (payload.request.intent.slots.confirmationStatus === 'CONFIRMED') {
+  if (payload.request.intent.slots.confirmationFilled.confirmationStatus === 'CONFIRMED') {
     console.log('doLightsOn confirmationStatus = CONFIRMED ')
     const res = await get(pathName, payload)
 
-    // MAKE ACCESS LESS BRITTLE -> No 0 PROP ACCESS
     return {
       text: res.responses[0][getItem.key].content.longDescription,
       options: { shouldEndSession: true },
