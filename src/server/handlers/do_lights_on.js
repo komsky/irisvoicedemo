@@ -59,6 +59,6 @@ const doLightsOn = async (payload) => {
       options: { shouldEndSession: false },
       session: {}
     }
-  }
+  }*/
 }
 export default doLightsOn
