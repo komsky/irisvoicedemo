@@ -9,7 +9,6 @@ const router = async (payload) => {
 
   const res = await handlers[name](payload)
   return createResponse(res)
-
 }
 
 export default router
