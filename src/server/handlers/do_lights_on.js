@@ -22,12 +22,10 @@ const doLightsOn = async (payload) => {
         session: res.session
       }
     } else if (value === 'no' || value === 'not' || value === 'nope') {
-      const res = await get(pathName, payload)
-
+    
       return {
         text: item.rejectionMsg,
-        options: { shouldEndSession: true },
-        session: res.session
+        options: { shouldEndSession: true }
       }
     }
   }
@@ -42,7 +40,7 @@ const doLightsOn = async (payload) => {
       text: item.confirmationMsg,
       reprompt: item.repromptMsg,
       options: { shouldEndSession: false },
-      session: {}
-    }
+      session: {}  
+  }
 }
 export default doLightsOn
