@@ -28,37 +28,18 @@ const doLightsOn = async (payload) => {
     }
   }
 
-  //if (!isFilled(slots)) {
-    console.log('Slots not filled')
+  console.log('Slots not filled')
 
-    if (!confirmationFilled(slots)) {
-      console.log('confirmationFilled not filled')
-      return {
-        directives: [
-          {
-            type: 'Dialog.ConfirmSlot',
-            slotToConfirm: 'confirmationSlot'
-          }
-        ],
-        text: 'Please confirm you wish to continue',
-        reprompt: 'I didn\'t quite catch that. Could you repeat please?',
-        options: { shouldEndSession: false },
-        session: {}
-      }
-    } else {
-      console.log('confirmationFilled filled')
-    }
-
-  /*} else {
-    return {
+  return {
       directives: [
         {
-          type: 'Dialog.Delegate'
+          type: 'Dialog.ConfirmSlot'
         }
       ],
+      text: 'Please confirm you wish to continue',
+      reprompt: 'I didn\'t quite catch that. Could you repeat please?',
       options: { shouldEndSession: false },
       session: {}
     }
-  }*/
 }
 export default doLightsOn
