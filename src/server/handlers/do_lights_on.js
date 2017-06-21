@@ -23,6 +23,7 @@ const doLightsOn = async (payload) => {
         session: res.session
       }
     } else if (value === 'no' || value === 'not' || value === 'nope') {
+      const res = await get(pathName, payload)
       
       return {
         text: "Your request was cancelled, thank you.",
