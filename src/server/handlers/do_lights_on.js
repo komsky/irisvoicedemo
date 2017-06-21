@@ -29,14 +29,14 @@ const doLightsOn = async (payload) => {
   }
 
   //if (!isFilled(slots)) {
-    //console.log('Slots not filled')
+    console.log('Slots not filled')
 
     if (!confirmationFilled(slots)) {
       console.log('confirmationFilled not filled')
       return {
         directives: [
           {
-            type: 'Dialog.ConfirmIntent',
+            type: 'Dialog.ConfirmSlot',
             slotToElicit: 'confirmation'
           }
         ],
@@ -59,6 +59,6 @@ const doLightsOn = async (payload) => {
       options: { shouldEndSession: false },
       session: {}
     }
-  }*/
+  }
 }
 export default doLightsOn
