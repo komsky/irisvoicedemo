@@ -10,17 +10,39 @@ const items = path([ 'HotelItems', 'in_room_dining' ], sections)
 const pathName = formatPath(items.code, getCategoryItems.path)
 
 const getFoodInformation = async (payload) => {
-  const { intent: { slots, confirmationStatus }, dialogState } = payload.request
+
+  const { intent: { slots: { mainOptions: { name, value } } }, dialogState } = payload.request
 
   const res = await get(pathName, payload)
   const items = res.responses[0][getCategoryItems.key].content.categoryItems
   const itemsText = items.map(x => x.name).join(',')
   const returnText = `Please select from the following; ${itemsText}`
 
-  return {
-    text: returnText,
-    options: { shouldEndSession: true },
-    session: res.session
+  if (value !== null) {
+
+      return {
+          text: 'You have selected ${value}',
+          options: { shouldEndSession: true },
+          session: res.session
+      }
+  } else {
+
+      return {
+      //text: returnText,
+      //options: { shouldEndSession: true },
+      //session: res.session
+
+      directives: [
+            {
+              type: 'Dialog.ElicitSlot',
+              slotToElicit: 'confirmationSlot'
+            }
+          ],
+          text: returnText,
+          reprompt: 'I didn\'t quite catch that. Could you repeat please?',
+          options: { shouldEndSession: false },
+          session: {}  
+      }
   }
 }
 
