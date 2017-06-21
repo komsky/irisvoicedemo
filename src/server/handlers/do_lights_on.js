@@ -45,7 +45,7 @@ const doLightsOn = async (payload) => {
           slotToElicit: 'confirmationSlot'
         }
       ],
-      text: 'Please confirm you wish to continue',
+      text: 'Please confirm you wish to continue; You can simply say; yes; or; no',
       reprompt: 'I didn\'t quite catch that; You can simply say; yes; or; no',
       options: { shouldEndSession: false },
       session: {}
