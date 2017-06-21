@@ -14,16 +14,14 @@ const pathName = formatPath(item.code, getItem.path)
 
 const doLightsOn = async (payload) => {
   const { intent: { slots, confirmationStatus, confirmationSlot }, dialogState } = payload.request
-  console.log('----------------------------------------------')
-  console.log('----------------------------------------------')
-  console.log('----------------------------------------------')
-  console.log('----------------------------------------------')
-  console.log('----------------------------------------------')
-  console.log('----------------------------------------------')
-    
   console.log('doLightsOn')
-  console.log('confirmationSlot.confirmationStatus ' , confirmationSlot.confirmationStatus)
-  if (confirmationSlot.value === 'CONFIRMED') {
+  console.log('----------------------------------------------')
+  console.log('----------------------------------------------')
+  console.log('----------------------------------------------')
+  console.log('----------------------------------------------')
+  console.log('----------------------------------------------')
+  console.log('----------------------------------------------')
+  if (confirmationStatus === 'CONFIRMED') {
     console.log('doLightsOn confirmationStatus = CONFIRMED ')
     const res = await get(pathName, payload)
 
