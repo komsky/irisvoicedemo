@@ -11,7 +11,7 @@ const pathName = formatPath(items.code, getCategoryItems.path)
 
 const getFoodInformation = async (payload) => {
 
-  const { intent: { slots: { mainOptions: { name , confirmationStatus } } }, dialogState } = payload.request
+  const { intent: { slots: { mainOptions: { name , value, confirmationStatus } } }, dialogState } = payload.request
 
   const res = await get(pathName, payload)
   
@@ -35,11 +35,11 @@ const getFoodInformation = async (payload) => {
                 session: {}  
           }
   }
-  if (name !== null && name !== '') {
+  if (value !== null && value !== '') {
 
-      console.log('name = ' , name)
+      console.log('value = ' , value)
       return {
-          text: 'You have selected ${name}',
+          text: 'You have selected ${value}',
           options: { shouldEndSession: true },
           session: res.session
       }
