@@ -37,7 +37,7 @@ const doRequestIroning = async (payload) => {
       } else if (value === 'no' || value === 'not' || value === 'nope') {
         
         return {
-          text: item.rejectionMsg,
+          text: service_request.rejectionMsg,
           options: { shouldEndSession: true }
         }
       }
@@ -50,8 +50,8 @@ const doRequestIroning = async (payload) => {
             slotToElicit: 'confirmationSlot'
           }
         ],
-        text: item.confirmationMsg,
-        reprompt: item.repromptMsg,
+        text: service_request.confirmationMsg,
+        reprompt: service_request.repromptMsg,
         options: { shouldEndSession: false },
         session: {}  
     }
