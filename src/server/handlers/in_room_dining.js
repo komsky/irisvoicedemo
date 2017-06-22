@@ -6,7 +6,7 @@ import { formatPath, buildInRoomDiningOrder, lower } from '../../utils'
 import { path, isEmpty } from 'ramda'
 
 const get = api(getCategoryItems.method)
-const getItem = api(getItem.method)
+const get1 = api(getItem.method)
 const post = api(checkout.method)
 
 const items = path([ 'HotelItems', 'in_room_dining' ], sections)
@@ -87,10 +87,10 @@ const getFoodInformation = async (payload) => {
       console.log('Item name = ' , item.name)
 
       const payload1 = buildInRoomDiningOrder(itemCode)
-
       console.log('payload1 = ' , payload1)
+      
       const pathName = formatPath(item.code, getItem.path)
-      const res = await get(pathName, payload)
+      const res = await get1(pathName, payload)
 
       const longDescription =  res.responses[0][getItem.key].content.longDescription
       const price =  res.responses[0][getItem.key].content.price
