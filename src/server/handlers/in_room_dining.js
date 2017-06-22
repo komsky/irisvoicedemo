@@ -50,28 +50,21 @@ const getFoodInformation = async (payload) => {
           session: res.session
         }
       }
-      var itemCode
+      var item
       if (value === `steak` || value === `flatiron steak`) {
-        itemCode = path([ 'HotelItems', 'in_room_dining', 'steak', 'code' ], sections)
-        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
+        item = path([ 'HotelItems', 'in_room_dining', 'steak' ], sections)
       } else if (value === `burger` || value === `h burger` || value === `hamburger`) {
-        itemCode = path([ 'HotelItems', 'in_room_dining', 'burger', 'code' ], sections)
-        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
+        item = path([ 'HotelItems', 'in_room_dining', 'burger' ], sections)
       } else if (value === `Lobster` || value === `Lobster Bisque`) {
-        itemCode = path([ 'HotelItems', 'in_room_dining', 'lobster', 'code' ], sections)
-        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
+        item = path([ 'HotelItems', 'in_room_dining', 'lobster' ], sections)
       } else if (value === `Cheese burger`) {
-        itemCode = path([ 'HotelItems', 'in_room_dining', 'cheese_burger', 'code' ], sections)
-        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
+        item = path([ 'HotelItems', 'in_room_dining', 'cheese_burger' ], sections)
       } else if (value === `Chocolate cake` || value === `cake`) {
-        itemCode = path([ 'HotelItems', 'in_room_dining', 'choc_cake', 'code' ], sections)
-        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
+        item = path([ 'HotelItems', 'in_room_dining', 'choc_cake' ], sections)
       } else if (value === `Seafood paella` || value === `paella`) {
-        itemCode = path([ 'HotelItems', 'in_room_dining', 'paella', 'code' ], sections)
-        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
+        item = path([ 'HotelItems', 'in_room_dining', 'paella' ], sections)
       } else if (value === `Caesar salad` || value === `salad`) {
-        itemCode = path([ 'HotelItems', 'in_room_dining', 'caesar_salad', 'code' ], sections)
-        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
+        item = path([ 'HotelItems', 'in_room_dining', 'caesar_salad' ], sections)
       } else {
 
         return {
@@ -88,8 +81,8 @@ const getFoodInformation = async (payload) => {
           }
       }
 
-      console.log('itemCode = ' , itemCode)
-      console.log('itemName = ' , itemName)
+      console.log('Item code = ' , item.code)
+      console.log('Item name = ' , item.name)
 
       const payload = buildInRoomDiningOrder(itemCode)
 
