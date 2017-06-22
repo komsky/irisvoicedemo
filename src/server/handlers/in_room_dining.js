@@ -1,10 +1,12 @@
 import api from '../api'
-import { getCategoryItems, checkout } from '../../../data/GXPRoutes'
+import { getCategoryItems, getItem, checkout } from '../../../data/GXPRoutes'
 import sections from '../../../data/sections'
 import { foodModel } from '../../model'
 import { formatPath, buildInRoomDiningOrder, lower } from '../../utils'
 import { path, isEmpty } from 'ramda'
+
 const get = api(getCategoryItems.method)
+const getItem = api(getItem.method)
 const post = api(checkout.method)
 
 const items = path([ 'HotelItems', 'in_room_dining' ], sections)
@@ -84,9 +86,16 @@ const getFoodInformation = async (payload) => {
       console.log('Item code = ' , item.code)
       console.log('Item name = ' , item.name)
 
-      const payload = buildInRoomDiningOrder(itemCode)
+      const payload1 = buildInRoomDiningOrder(itemCode)
 
-      console.log('payload = ' , payload)
+      console.log('payload1 = ' , payload1)
+      const pathName = formatPath(item.code, getItem.path)
+      const res = await get(pathName, payload)
+
+      const longDescription =  res.responses[0][getItem.key].content.longDescription
+      const price =  res.responses[0][getItem.key].content.price
+      console.log('longDescription = ' , longDescription)
+      console.log('price = ' , price)
 
       //const res = await post(checkout.path, payload)
       
@@ -97,7 +106,7 @@ const getFoodInformation = async (payload) => {
                     slotToElicit: 'confirmationSlot'
                   }
                 ],
-          text: `You have selected ${value}; is that correct?`,
+          text: `You have selected ${value}; is that correct? ${price}`,
           options: { shouldEndSession: false },
           session: res.session
       }
