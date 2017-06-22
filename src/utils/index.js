@@ -6,3 +6,5 @@ export { slotFilled as slotFilled } from './slotsFilled'
 export { default as buildOrder } from './buildOrder'
 export { default as lower } from './lower'
 export { default as buildServiceRequest } from './buildServiceRequest'
+export { default as buildInRoomDiningOrder } from './buildInRoomDiningOrder'
+

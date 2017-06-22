@@ -2,12 +2,18 @@ import api from '../api'
 import { getCategoryItems, checkout } from '../../../data/GXPRoutes'
 import sections from '../../../data/sections'
 import { foodModel } from '../../model'
-import { formatPath, buildServiceRequest, lower } from '../../utils'
+import { formatPath, buildInRoomDiningOrder, lower } from '../../utils'
 import { path, isEmpty } from 'ramda'
 const get = api(getCategoryItems.method)
+const post = api(checkout.method)
 
 const items = path([ 'HotelItems', 'in_room_dining' ], sections)
 const pathName = formatPath(items.code, getCategoryItems.path)
+
+const submitOrder = (slots, items) => {
+  const payload = buildOrder(foodModel)(slots, items)
+  post(checkout.path, payload)
+}
 
 const getFoodInformation = async (payload) => {
 
@@ -44,22 +50,30 @@ const getFoodInformation = async (payload) => {
           session: res.session
         }
       }
-
+      var itemCode
       if (value === `steak` || value === `flatiron steak`) {
-        111
+        itemCode = path([ 'HotelItems', 'in_room_dining', 'steak', 'code' ], sections)
+        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
       } else if (value === `burger` || value === `h burger` || value === `hamburger`) {
-        111
+        itemCode = path([ 'HotelItems', 'in_room_dining', 'burger', 'code' ], sections)
+        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
       } else if (value === `Lobster` || value === `Lobster Bisque`) {
-        111
+        itemCode = path([ 'HotelItems', 'in_room_dining', 'lobster', 'code' ], sections)
+        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
       } else if (value === `Cheese burger`) {
-        111
+        itemCode = path([ 'HotelItems', 'in_room_dining', 'cheese_burger', 'code' ], sections)
+        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
       } else if (value === `Chocolate cake` || value === `cake`) {
-        111
+        itemCode = path([ 'HotelItems', 'in_room_dining', 'choc_cake', 'code' ], sections)
+        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
       } else if (value === `Seafood paella` || value === `paella`) {
-        111
+        itemCode = path([ 'HotelItems', 'in_room_dining', 'paella', 'code' ], sections)
+        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
       } else if (value === `Caesar salad` || value === `salad`) {
-        
+        itemCode = path([ 'HotelItems', 'in_room_dining', 'caesar_salad', 'code' ], sections)
+        itemName = path([ 'HotelItems', 'in_room_dining', 'steak', 'name' ], sections)
       } else {
+
         return {
             directives: [
                   {
@@ -74,7 +88,14 @@ const getFoodInformation = async (payload) => {
           }
       }
 
-      submitOrder()
+      console.log('itemCode = ' , itemCode)
+      console.log('itemName = ' , itemName)
+
+      const payload = buildInRoomDiningOrder(itemCode)
+
+      console.log('payload = ' , payload)
+
+      //const res = await post(checkout.path, payload)
       
       return {
           directives: [
