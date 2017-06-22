@@ -24,9 +24,12 @@ const getFoodInformation = async (payload) => {
   const res = await get(pathName, payload)
   const items = res.responses[0][getCategoryItems.key].content.categoryItems
   const itemsText = items.map(x => x.name).join(',')
-  const returnText = `We have some great things in on the in-room dining menu tonight. Here are some options; ${itemsText}`
+  const returnText = `We have some great things on the in; room; dining menu tonight. Here are some options; ${itemsText}`
 
   // dialogState: 'STARTED' IN_PROGRESS
+  if (dialogState == 'IN_PROGRESS') {
+
+  }
   if (dialogState == 'STARTED') {
 
       return {
@@ -86,27 +89,29 @@ const getFoodInformation = async (payload) => {
       console.log('Item code = ' , item.code)
       console.log('Item name = ' , item.name)
 
-      const payload1 = buildInRoomDiningOrder(item.code)
+      const payload1 = {
+                          categoryItems: [
+                            {
+                              itemCode: item.code,
+                              quantity: 1,
+                            }
+                          ],
+                          checkout: {
+                            deliveryDateTime: new Date().toISOString(),
+                            isDeliveryDateTimeUtc: true,
+                          },
+                          justValidateDeliveryTime: false
+                        }
       console.log('payload1 = ' , payload1)
       
       const pathName = formatPath(item.code, getItem.path)
-      const res = await get1(pathName, payload)
-
-      const longDescription =  res.responses[0][getItem.key].content.longDescription
-      const price =  res.responses[0][getItem.key].content.price
-      console.log('longDescription = ' , longDescription)
-      console.log('price = ' , price)
-      const textPrompt = `You have selected ${value}; this would be ${price} dollars, shall I continue?`
-      console.log('textPrompt = ' , textPrompt)
-      //const res = await post(checkout.path, payload)
+      const res1 = await get1(pathName, payload)      
+      const res2 = await post(checkout.path, payload1)
       
+      const textPrompt = `You have selected ${value}; this would be ${price} dollars; your order should be with you shortly`
+      console.log('textPrompt = ' , textPrompt)
+
       return {
-          directives: [
-                  {
-                    type: 'Dialog.ElicitSlot',
-                    slotToElicit: 'confirmationSlot'
-                  }
-                ],
           text: textPrompt ,
           options: { shouldEndSession: false },
           session: res.session
