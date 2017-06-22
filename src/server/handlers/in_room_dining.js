@@ -12,11 +12,6 @@ const post = api(checkout.method)
 const items = path([ 'HotelItems', 'in_room_dining' ], sections)
 const pathName = formatPath(items.code, getCategoryItems.path)
 
-const submitOrder = (slots, items) => {
-  const payload = buildOrder(foodModel)(slots, items)
-  post(checkout.path, payload)
-}
-
 const getFoodInformation = async (payload) => {
 
   const { intent: { slots: { mainOptions: { name , value, confirmationStatus } } }, dialogState } = payload.request
@@ -24,7 +19,7 @@ const getFoodInformation = async (payload) => {
   const res = await get(pathName, payload)
   const items = res.responses[0][getCategoryItems.key].content.categoryItems
   const itemsText = items.map(x => x.name).join(',')
-  const returnText = `We have some great things on the in room dining menu tonight. Here are some options; ${itemsText}`
+  const returnText = `We have some great things on our in room dining menu tonight. Here are some options; ${itemsText}`
 
   if (dialogState == 'STARTED') {
 
@@ -101,15 +96,17 @@ const getFoodInformation = async (payload) => {
       console.log('payload1 = ' , payload1)
       
       const pathName = formatPath(item.code, getItem.path)
-      const res1 = await get1(pathName, payload)      
-      const res2 = post(checkout.path, payload1)
-      
-      const textPrompt = `You have selected ${value}; this would be ${price} dollars; your order should be with you shortly`
-      console.log('textPrompt = ' , textPrompt)
+      const res1 = await get1(pathName, payload)
+      const price =  res1.responses[0][getItem.key].content.price
+      console.log('price = ' , price)
 
+      const res2 = await post(checkout.path, payload)
+      const textPrompt = `You have selected ${value}; this would be ${price} dollars; your order will be with you shortly.`
+      console.log('textPrompt = ' , textPrompt)
+      
       return {
           text: textPrompt ,
-          options: { shouldEndSession: false },
+          options: { shouldEndSession: true },
           session: res.session
       }
   }
