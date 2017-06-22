@@ -16,12 +16,12 @@ const getFoodInformation = async (payload) => {
 
   const { intent: { slots: { mainOptions: { value, confirmationStatus } } }, dialogState } = payload.request
 
-  if (dialogState == 'STARTED') {
+  const res = await get(pathName, payload)
+  const items = res.responses[0][getCategoryItems.key].content.categoryItems
+  const itemsText = items.map(x => x.name).join(',')
+  const returnText = `We have some great things on our in room dining menu tonight. Here are some options; ${itemsText}`
 
-      const res = await get(pathName, payload)
-      const items = res.responses[0][getCategoryItems.key].content.categoryItems
-      const itemsText = items.map(x => x.name).join(',')
-      const returnText = `We have some great things on our in room dining menu tonight. Here are some options; ${itemsText}`
+  if (dialogState == 'STARTED') {
 
       return {
             directives: [
