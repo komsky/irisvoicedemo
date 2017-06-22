@@ -57,15 +57,15 @@ const getFoodInformation = async (payload) => {
         item = path([ 'HotelItems', 'in_room_dining', 'steak' ], sections)
       } else if (value === `burger` || value === `h burger` || value === `hamburger`) {
         item = path([ 'HotelItems', 'in_room_dining', 'burger' ], sections)
-      } else if (value === `Lobster` || value === `Lobster Bisque`) {
+      } else if (value === `lobster` || value === `lobster bisque`) {
         item = path([ 'HotelItems', 'in_room_dining', 'lobster' ], sections)
-      } else if (value === `Cheese burger`) {
+      } else if (value === `cheese burger`) {
         item = path([ 'HotelItems', 'in_room_dining', 'cheese_burger' ], sections)
-      } else if (value === `Chocolate cake` || value === `cake`) {
+      } else if (value === `chocolate cake` || value === `cake`) {
         item = path([ 'HotelItems', 'in_room_dining', 'choc_cake' ], sections)
-      } else if (value === `Seafood paella` || value === `paella`) {
+      } else if (value === `seafood paella` || value === `paella`) {
         item = path([ 'HotelItems', 'in_room_dining', 'paella' ], sections)
-      } else if (value === `Caesar salad` || value === `salad`) {
+      } else if (value === `caesar salad` || value === `salad`) {
         item = path([ 'HotelItems', 'in_room_dining', 'caesar_salad' ], sections)
       } else {
 
@@ -86,7 +86,7 @@ const getFoodInformation = async (payload) => {
       console.log('Item code = ' , item.code)
       console.log('Item name = ' , item.name)
 
-      const payload1 = buildInRoomDiningOrder(itemCode)
+      const payload1 = buildInRoomDiningOrder(item.code)
       console.log('payload1 = ' , payload1)
       
       const pathName = formatPath(item.code, getItem.path)
