@@ -93,14 +93,13 @@ const getFoodInformation = async (payload) => {
                           },
                           justValidateDeliveryTime: false
                         }
-      console.log('payload1 = ' , payload1)
       
       const pathName = formatPath(item.code, getItem.path)
       const res1 = await get1(pathName, payload)
       const price =  res1.responses[0][getItem.key].content.price
       console.log('price = ' , price)
 
-      const res2 = await post(checkout.path, payload)
+      const res2 = await post(checkout.path, payload1)
       const textPrompt = `You have selected ${value}; this would be ${price} dollars; your order will be with you shortly.`
       console.log('textPrompt = ' , textPrompt)
       
