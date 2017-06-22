@@ -24,7 +24,7 @@ const getFoodInformation = async (payload) => {
   const res = await get(pathName, payload)
   const items = res.responses[0][getCategoryItems.key].content.categoryItems
   const itemsText = items.map(x => x.name).join(',')
-  const returnText = `Please select from the following; ${itemsText}`
+  const returnText = `We have some great things in on the in-room dining menu tonight. Here are some options; ${itemsText}`
 
   // dialogState: 'STARTED' IN_PROGRESS
   if (dialogState == 'STARTED') {
@@ -96,7 +96,8 @@ const getFoodInformation = async (payload) => {
       const price =  res.responses[0][getItem.key].content.price
       console.log('longDescription = ' , longDescription)
       console.log('price = ' , price)
-
+      const textPrompt = `You have selected ${value}; this would be ${price} dollars, shall I continue?`
+      console.log('textPrompt = ' , textPrompt)
       //const res = await post(checkout.path, payload)
       
       return {
@@ -106,7 +107,7 @@ const getFoodInformation = async (payload) => {
                     slotToElicit: 'confirmationSlot'
                   }
                 ],
-          text: `You have selected ${value}; is that correct? ${price}`,
+          text: textPrompt ,
           options: { shouldEndSession: false },
           session: res.session
       }
