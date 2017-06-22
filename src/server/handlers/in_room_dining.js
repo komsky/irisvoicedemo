@@ -24,12 +24,8 @@ const getFoodInformation = async (payload) => {
   const res = await get(pathName, payload)
   const items = res.responses[0][getCategoryItems.key].content.categoryItems
   const itemsText = items.map(x => x.name).join(',')
-  const returnText = `We have some great things on the in; room; dining menu tonight. Here are some options; ${itemsText}`
+  const returnText = `We have some great things on the in room dining menu tonight. Here are some options; ${itemsText}`
 
-  // dialogState: 'STARTED' IN_PROGRESS
-  if (dialogState == 'IN_PROGRESS') {
-
-  }
   if (dialogState == 'STARTED') {
 
       return {
@@ -106,7 +102,7 @@ const getFoodInformation = async (payload) => {
       
       const pathName = formatPath(item.code, getItem.path)
       const res1 = await get1(pathName, payload)      
-      const res2 = await post(checkout.path, payload1)
+      const res2 = post(checkout.path, payload1)
       
       const textPrompt = `You have selected ${value}; this would be ${price} dollars; your order should be with you shortly`
       console.log('textPrompt = ' , textPrompt)
