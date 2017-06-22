@@ -14,7 +14,7 @@ const pathName = formatPath(items.code, getCategoryItems.path)
 
 const getFoodInformation = async (payload) => {
 
-  const { intent: { slots: { mainOptions: { name , value, confirmationStatus } } }, dialogState } = payload.request
+  const { intent: { slots: { mainOptions: { value, confirmationStatus } } }, dialogState } = payload.request
 
   const res = await get(pathName, payload)
   const items = res.responses[0][getCategoryItems.key].content.categoryItems
